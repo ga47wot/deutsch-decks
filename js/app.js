@@ -2,7 +2,7 @@
 "use strict";
 
 const App = (() => {
-  const VERSION = "1.0.3";
+  const VERSION = "1.1.0";
   const $ = (id) => document.getElementById(id);
 
   /* ================= modal ================= */
@@ -45,6 +45,21 @@ const App = (() => {
     noticeTimer = setTimeout(() => { el.hidden = true; }, 8000);
     if (currentScreen !== "home") switchScreen("home");
   }
+
+  /* ================= theme ================= */
+
+  const darkMedia = window.matchMedia("(prefers-color-scheme: dark)");
+
+  function applyTheme(theme) {
+    const root = document.documentElement;
+    if (theme === "dark" || theme === "light") root.dataset.theme = theme;
+    else delete root.dataset.theme;
+    const dark = theme === "dark" || (theme !== "light" && darkMedia.matches);
+    const meta = document.querySelector('meta[name="theme-color"]');
+    if (meta) meta.content = dark ? "#0f1115" : "#f4f5f8";
+  }
+
+  darkMedia.addEventListener?.("change", () => applyTheme(Store.getSettings().theme));
 
   /* ================= navigation ================= */
 
@@ -136,14 +151,38 @@ const App = (() => {
 
   /* ================= decks ================= */
 
+  let levelFilter = "";   // "" = all levels
+
+  function visibleDecks() {
+    return Decks.all().filter(d => !levelFilter || d.level === levelFilter);
+  }
+
+  function renderLevelTabs() {
+    const host = $("level-tabs");
+    host.innerHTML = "";
+    const levels = [...new Set(Decks.all().map(d => d.level).filter(Boolean))];
+    if (levels.every(l => l === levels[0]) && levels.length < 2) { host.hidden = true; return; }
+    host.hidden = false;
+    for (const [label, value] of [["All", ""], ...levels.map(l => [l, l])]) {
+      const b = document.createElement("button");
+      b.className = "level-tab" + (levelFilter === value ? " active" : "");
+      b.setAttribute("role", "tab");
+      b.setAttribute("aria-selected", String(levelFilter === value));
+      b.textContent = label;
+      b.addEventListener("click", () => { levelFilter = value; renderDecks(); });
+      host.appendChild(b);
+    }
+  }
+
   async function renderDecks() {
+    renderLevelTabs();
     const list = $("deck-list");
     list.innerHTML = "";
     const err = Decks.getCatalogueError();
     if (err) showNotice(err);
     const sel = new Set(Store.getSettings().selectedDecks);
 
-    for (const deck of Decks.all()) {
+    for (const deck of visibleDecks()) {
       const li = document.createElement("li");
       const item = document.createElement("label");
       item.className = "deck-item" + (sel.has(deck.id) ? " selected" : "");
@@ -213,8 +252,13 @@ const App = (() => {
     }
   }
 
+  /* Select/deselect the decks currently visible under the level filter,
+   * leaving decks of other levels untouched. */
   function selectAll(on) {
-    Store.saveSettings({ selectedDecks: on ? Decks.all().map(d => d.id) : [] });
+    const visible = new Set(visibleDecks().map(d => d.id));
+    const sel = new Set(Store.getSettings().selectedDecks);
+    for (const id of visible) { if (on) sel.add(id); else sel.delete(id); }
+    Store.saveSettings({ selectedDecks: [...sel] });
     renderDecks();
     updateDueBadge();
   }
@@ -342,6 +386,7 @@ const App = (() => {
   function renderSettings() {
     renderVoices();
     const s = Store.getSettings();
+    $("theme-select").value = s.theme || "system";
     $("rate-slider").value = s.rate;
     $("rate-value").textContent = s.rate.toFixed(2).replace(/0$/, "");
     const rs = $("reset-deck-select");
@@ -511,6 +556,10 @@ const App = (() => {
 
     Browse.init();
 
+    $("theme-select").addEventListener("change", (e) => {
+      Store.saveSettings({ theme: e.target.value });
+      applyTheme(e.target.value);
+    });
     $("voice-select").addEventListener("change", (e) => Store.saveSettings({ voiceURI: e.target.value || null }));
     $("rate-slider").addEventListener("input", (e) => {
       const rate = Number(e.target.value);
@@ -548,6 +597,7 @@ const App = (() => {
   /* ================= boot ================= */
 
   async function init() {
+    applyTheme(Store.getSettings().theme);
     wire();
     registerSW();
     await Decks.loadCatalogue();

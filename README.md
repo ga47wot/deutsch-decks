@@ -33,23 +33,25 @@ Flashcards/
 ├── manifest.webmanifest  PWA manifest
 ├── icons/
 └── data/
-    ├── A2.2_deck.json            deck catalogue (see below)
-    └── A2.2_flashcards/          one JSON array of cards per lesson
+    ├── YGT_deck-index.json       master deck catalogue (see below)
+    ├── A2.1_flaschcards/         A2.1 decks, one JSON array of cards per lesson
+    └── A2.2_flashcards/          A2.2 decks
 ```
 
 ## Adding a new chapter deck
 
 Static hosting cannot list directory contents, so decks are discovered through
-the catalogue file `data/A2.2_deck.json`:
+the master catalogue `data/YGT_deck-index.json`:
 
-1. Put the new deck file in `data/A2.2_flashcards/`, e.g.
-   `A2_2_Lektion_11_deck.json` — a JSON **array** of card objects
-   (schema in [CLAUDE.md](CLAUDE.md)). Card `id`s must be unique across all decks.
-2. Add an entry to the `decks` array in `data/A2.2_deck.json`:
+1. Put the new deck file in the book's folder (e.g. `data/A2.2_flashcards/`) —
+   a JSON **array** of card objects (schema in [CLAUDE.md](CLAUDE.md)).
+   Card `id`s must be unique across **all** decks of all books.
+2. Add an entry to the `decks` array in `data/YGT_deck-index.json`:
 
    ```json
    {
      "deck_id": "A2_2_L11",
+     "book_id": "A2_2",
      "file": "A2_2_Lektion_11_deck.json",
      "lesson": "Lektion 11",
      "lesson_number": 11,
@@ -59,8 +61,12 @@ the catalogue file `data/A2.2_deck.json`:
    }
    ```
 
-   Only entries with `status: "created"` and a non-null `file` are loaded.
-3. Bump `CACHE_VERSION` in [sw.js](sw.js) (e.g. `dd-v1.0.1`) so the service
+   Only entries with `status: "created"`, a non-null `file`, and a known
+   `book_id` are loaded.
+3. For a **new book** (e.g. B1.1): create its folder under `data/` and add the
+   folder mapping to `BOOK_DIRS` in both [js/decks.js](js/decks.js) and
+   [sw.js](sw.js); the level tab in the Decks screen appears automatically.
+4. Bump `CACHE_VERSION` in [sw.js](sw.js) (e.g. `dd-v1.1.1`) so the service
    worker re-caches the data and users get the "New version available" banner.
 
 Alternatively, on the phone itself: **Decks → Import deck…** and pick a deck

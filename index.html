@@ -85,6 +85,7 @@
 
   <!-- ============ DECKS ============ -->
   <section id="screen-decks" class="screen" hidden>
+    <div id="level-tabs" class="level-tabs" role="tablist" aria-label="Course level"></div>
     <div class="deck-toolbar">
       <button id="btn-select-all" class="btn btn-small">Select all</button>
       <button id="btn-select-none" class="btn btn-small">Select none</button>
@@ -112,6 +113,18 @@
 
   <!-- ============ SETTINGS ============ -->
   <section id="screen-settings" class="screen" hidden>
+    <div class="card-panel">
+      <h2>Appearance</h2>
+      <div class="field-row">
+        <label for="theme-select">Theme</label>
+        <select id="theme-select" class="input">
+          <option value="system">System (follow device)</option>
+          <option value="dark">Dark</option>
+          <option value="light">Light</option>
+        </select>
+      </div>
+    </div>
+
     <div class="card-panel">
       <h2>German audio</h2>
       <div class="field-row">

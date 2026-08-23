@@ -3,9 +3,12 @@
  */
 "use strict";
 
-const CACHE_VERSION = "dd-v1.0.3";
-const CATALOGUE = "data/A2.2_deck.json";
-const DECK_DIR = "data/A2.2_flashcards/";
+const CACHE_VERSION = "dd-v1.1.0";
+const CATALOGUE = "data/YGT_deck-index.json";
+const BOOK_DIRS = {
+  A2_1: "data/A2.1_flaschcards/",
+  A2_2: "data/A2.2_flashcards/",
+};
 
 const SHELL = [
   "./",
@@ -35,8 +38,8 @@ self.addEventListener("install", (event) => {
         await cache.put(CATALOGUE, res.clone());
         const cat = await res.json();
         const files = (cat.decks || [])
-          .filter(d => d.status === "created" && d.file)
-          .map(d => DECK_DIR + d.file);
+          .filter(d => d.status === "created" && d.file && BOOK_DIRS[d.book_id])
+          .map(d => BOOK_DIRS[d.book_id] + d.file);
         await Promise.all(files.map(async (url) => {
           try {
             const r = await fetch(url, { cache: "no-cache" });

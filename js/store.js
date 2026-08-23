@@ -15,6 +15,7 @@ const Store = (() => {
     voiceURI: null,
     selectedDecks: [],
     newPerDay: 20,
+    theme: "system",
   };
 
   function readJSON(key, fallback) {

@@ -2,8 +2,12 @@
 "use strict";
 
 const Decks = (() => {
-  const CATALOGUE_URL = "data/A2.2_deck.json";
-  const DECK_DIR = "data/A2.2_flashcards/";
+  const CATALOGUE_URL = "data/YGT_deck-index.json";
+  // per-book deck directories (A2.1 folder name keeps its original spelling)
+  const BOOK_DIRS = {
+    A2_1: "data/A2.1_flaschcards/",
+    A2_2: "data/A2.2_flashcards/",
+  };
 
   let catalogueDecks = [];       // deck meta from data/A2.2_deck.json
   let catalogueError = null;
@@ -48,18 +52,23 @@ const Decks = (() => {
       const cat = await res.json();
       if (!cat || !Array.isArray(cat.decks)) throw new Error("catalogue has no decks array");
       catalogueDecks = cat.decks
-        .filter(d => d.status === "created" && d.file)
-        .map(d => ({
-          id: d.deck_id,
-          title: d.lesson || d.deck_id,
-          lessonNumber: d.lesson_number ?? null,
-          lessonLabel: d.lesson || "",
-          topics: Array.isArray(d.topics) ? d.topics : [],
-          cardCount: d.card_count ?? null,
-          file: d.file,
-          book: d.book || "",
-          source: "catalogue",
-        }));
+        .filter(d => d.status === "created" && d.file && BOOK_DIRS[d.book_id])
+        .map(d => {
+          const level = (d.book_id || "").replace("_", ".");   // A2_1 -> A2.1
+          return {
+            id: d.deck_id,
+            title: level + " · " + (d.lesson || d.deck_id),
+            level,
+            dir: BOOK_DIRS[d.book_id],
+            lessonNumber: d.lesson_number ?? null,
+            lessonLabel: level + " · " + (d.lesson || ""),
+            topics: Array.isArray(d.topics) ? d.topics : [],
+            cardCount: d.card_count ?? null,
+            file: d.file,
+            book: d.book || "",
+            source: "catalogue",
+          };
+        });
     } catch (e) {
       catalogueDecks = [];
       catalogueError = "Could not load the deck catalogue (" + e.message + "). " +
@@ -75,6 +84,7 @@ const Decks = (() => {
     const custom = Object.entries(Store.getCustomDecks()).map(([id, d]) => ({
       id,
       title: d.meta.title || id,
+      level: "Imported",
       lessonNumber: d.meta.lessonNumber ?? null,
       lessonLabel: d.meta.lessonLabel || "Imported",
       topics: d.meta.topics || [],
@@ -99,7 +109,7 @@ const Decks = (() => {
     } else {
       let raw;
       try {
-        const res = await fetch(DECK_DIR + deck.file);
+        const res = await fetch(deck.dir + deck.file);
         if (!res.ok) throw new Error("HTTP " + res.status);
         raw = await res.json();
       } catch (e) {

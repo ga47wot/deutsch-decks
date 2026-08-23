@@ -1,0 +1,612 @@
+{
+  "generated": "2026-08-23",
+  "phase": 1,
+  "note": "Master index across all YGT books (option 2a). A2.1 and A2.2 complete; B1.1 and B1.2 batches pending.",
+  "books": [
+    {
+      "book_id": "A2_1",
+      "book": "A2.1 YGT Kurs- und Arbeitsbuch",
+      "cefr": "A2",
+      "source_file": "A2_1_YGT_Kurs-_und_Arbeitsbuch_-_Print.pdf",
+      "status": "complete (L1-L10 created)"
+    },
+    {
+      "book_id": "A2_2",
+      "book": "A2.2 YGT Kurs- und Arbeitsbuch",
+      "cefr": "A2",
+      "source_file": "A2_2_YGT_Kursbuch_Arbeitsbuch_-_Print.pdf",
+      "status": "complete (L1-L10 created)"
+    },
+    {
+      "book_id": "B1_1",
+      "book": "B1.1 YGT Kurs- und Arbeitsbuch",
+      "cefr": "B1",
+      "source_file": "B1-1_YGT_Kurs-_und_Arbeitsbuch_-_Print.pdf",
+      "status": "pending"
+    },
+    {
+      "book_id": "B1_2",
+      "book": "B1.2 YGT Kurs- und Arbeitsbuch",
+      "cefr": "B1",
+      "source_file": "B1_2_YGT_Kurs-_und_Arbeitsbuch_-_Print.pdf",
+      "status": "pending"
+    }
+  ],
+  "decks": [
+    {
+      "deck_id": "A2_1_L1",
+      "file": "A2_1_Lektion_1_deck.json",
+      "book": "A2.1 YGT Kurs- und Arbeitsbuch",
+      "cefr": "A2",
+      "lesson": "Lektion 1",
+      "lesson_number": 1,
+      "source_file": "A2_1_YGT_Kurs-_und_Arbeitsbuch_-_Print.pdf",
+      "source_page": null,
+      "heading": "Important phrases & vocabulary",
+      "topics": [
+        "Modalverben",
+        "Weitere wichtige Wörter"
+      ],
+      "card_count": 36,
+      "status": "created",
+      "warnings": [
+        "source_page not printed on this page; text layer preserves no page number",
+        "LAYOUT: the Modalverben section prints FOUR columns per row (infinitive | gloss | Präteritum form | Präteritum gloss). Per the one-book-line-one-card rule each row is one card: de joins infinitive and Präteritum as 'können / konnten', en joins both glosses with ';'. The slash and semicolon are formatting introduced by Claude; all four cell texts are the book's.",
+        "Weitere wichtige Wörter left column prints inline de+en pairs; right column prints a German run followed by an English run (15/15, verified)",
+        "empty '()' plural markers normalised to '-' (das Gästezimmer, der Wecker)",
+        "'ein]|schlafen' -> 'ein|schlafen'; 'mit |nehmen' -> 'mit|nehmen'; '[um]ziehen nach' brackets preserved as printed",
+        "run-together glosses separated: 'hadto' -> 'had to'; 'was/were supposedto' -> 'was / were supposed to'",
+        "stray illustration captions excluded (stundenlang telefonieren, verschlafen, den Bus verpassen, ein Geschenk bekommen)"
+      ],
+      "book_id": "A2_1"
+    },
+    {
+      "deck_id": "A2_1_L2",
+      "file": "A2_1_Lektion_2_deck.json",
+      "book": "A2.1 YGT Kurs- und Arbeitsbuch",
+      "cefr": "A2",
+      "lesson": "Lektion 2",
+      "lesson_number": 2,
+      "source_file": "A2_1_YGT_Kurs-_und_Arbeitsbuch_-_Print.pdf",
+      "source_page": null,
+      "heading": "Important phrases & vocabulary",
+      "topics": [
+        "Wechselpräpositionen",
+        "In einer Wohnung",
+        "Verben",
+        "Weitere wichtige Wörter"
+      ],
+      "card_count": 43,
+      "status": "created",
+      "warnings": [
+        "source_page not printed on this page; text layer preserves no page number",
+        "FOUR topics on this page: Wechselpräpositionen (5 L / 4 R), In einer Wohnung (10 L / 9 R), Verben (4 L / 3 R), Weitere wichtige Wörter (4 L / 4 R); all eight runs verified",
+        "umlaut plural markers normalised: 'der Backofen (=)' -> ¨; 'der Platz (=e)', 'die Wand (=e)' -> ¨e",
+        "empty '()' plural markers normalised to '-' (der Drucker, der Geldbeutel, der Sessel)",
+        "gloss OCR artifact '‚printer' recorded as 'printer'",
+        "right-column Weitere glosses (Well, all right then. / Got it. / enough / some) located after a page-footer block; alignment 4/4 verified",
+        "stray illustration captions excluded (Couch Couch, auf den/auf dem Nachttisch, über die/über der Pflanze, zwischen die/zwischen den Fenster(n))"
+      ],
+      "book_id": "A2_1"
+    },
+    {
+      "deck_id": "A2_1_L3",
+      "file": "A2_1_Lektion_3_deck.json",
+      "book": "A2.1 YGT Kurs- und Arbeitsbuch",
+      "cefr": "A2",
+      "lesson": "Lektion 3",
+      "lesson_number": 3,
+      "source_file": "A2_1_YGT_Kurs-_und_Arbeitsbuch_-_Print.pdf",
+      "source_page": null,
+      "heading": "Important phrases & vocabulary",
+      "topics": [
+        "Landschaften",
+        "Weitere wichtige Wörter"
+      ],
+      "card_count": 30,
+      "status": "created",
+      "warnings": [
+        "source_page not printed on this page; text layer preserves no page number",
+        "umlaut plural markers OCR'd as 'ze'/'=e'/'=er' normalised: der Ausflug, der Baum, der Fluss, der Strand -> ¨e; der Wald -> ¨er",
+        "empty '()' plural markers normalised to '-' (das Ufer)",
+        "der See (-n) [lake] and die See (-) [sea] are separate printed rows and separate cards",
+        "leading '. ' OCR artifacts stripped from several rows (. der See, . die Wanderung, . wahrscheinlich)",
+        "stray duplicate captions excluded ('das Meer (-e) der Strand (ze)' banner; 'der Fluss (=e)' and 'das Ufer ()' repeats)",
+        "column runs verified: 9/9, 9/9, 6/6, 6/6"
+      ],
+      "book_id": "A2_1"
+    },
+    {
+      "deck_id": "A2_1_L4",
+      "file": "A2_1_Lektion_4_deck.json",
+      "book": "A2.1 YGT Kurs- und Arbeitsbuch",
+      "cefr": "A2",
+      "lesson": "Lektion 4",
+      "lesson_number": 4,
+      "source_file": "A2_1_YGT_Kurs-_und_Arbeitsbuch_-_Print.pdf",
+      "source_page": null,
+      "heading": "Important phrases & vocabulary",
+      "topics": [
+        "Reisevokabular",
+        "Weitere wichtige Wörter"
+      ],
+      "card_count": 38,
+      "status": "created",
+      "warnings": [
+        "source_page not printed on this page; text layer preserves no page number",
+        "GLOSS-ORDER DEFECT (right column, Reisevokabular): the printed English run is the German run with 'accommodation' displaced from position 1 to position 9. Positional pairing would mis-gloss 9 cards (e.g. der Rundgang -> 'sight'). Repaired by restoring the displaced gloss to die Unterkunft; all 9 pairings then match. Same defect class as A2.2 L4/L5. en_source stays 'book' - every gloss is the book's printed text, only its order was corrupted.",
+        "one stray gloss token 'to' follows 'at' (gloss of bei) at the section edge; unattached to any German row, excluded and noted here. bei is glossed 'at' as printed.",
+        "umlaut plural markers normalised (=e -> ¨e): der Stadtplan, der Gast, der Plan, die Unterkunft, der Rundgang",
+        "'die Sehenswürdigkeit (en)' printed without hyphen; recorded as -en",
+        "empty '()' plural markers normalised to '-' (der Reiseführer)",
+        "stray illustration captions excluded (die Touristeninformation / der Stadtplan banner, Geld wechseln repeat, 'tour guide / guide book die Unterkunft (=e)' inline stray)",
+        "column runs verified after repair: 9/9, 9/9, 11/11, 9/9"
+      ],
+      "book_id": "A2_1"
+    },
+    {
+      "deck_id": "A2_1_L5",
+      "file": "A2_1_Lektion_5_deck.json",
+      "book": "A2.1 YGT Kurs- und Arbeitsbuch",
+      "cefr": "A2",
+      "lesson": "Lektion 5",
+      "lesson_number": 5,
+      "source_file": "A2_1_YGT_Kurs-_und_Arbeitsbuch_-_Print.pdf",
+      "source_page": null,
+      "heading": "Important phrases & vocabulary",
+      "topics": [
+        "Wichtige Nomen",
+        "Verben im Konjunktiv II",
+        "Weitere wichtige Verben",
+        "Weitere wichtige Wörter"
+      ],
+      "card_count": 44,
+      "status": "created",
+      "warnings": [
+        "source_page not printed on this page; text layer preserves no page number",
+        "FOUR topics on this page; layout is inline de+en pairs in BOTH columns (no separated gloss runs); runs verified 10/10, 5, 5+4, 5/5",
+        "heading OCR 'Verben im Konjunktiv Il - verbs ingeneral subjunctive' read as 'Verben im Konjunktiv II - verbs in general subjunctive'",
+        "Konjunktiv II forms are printed in the sie/Sie (plural) form as headwords (hätten, wären, würden, könnten, sollten) and kept as printed",
+        "'das Gehalt (ä,-er)' printed with unusual marker; recorded as ¨er, print form noted here",
+        "'zulnehmen' OCR corrected to 'zu|nehmen'; 'der Fitnesstrainer()' -> (-)",
+        "run-together glosses separated: 'to work out/totrain', 'definitely/in anycase', 'tiring /exhausting'",
+        "stray illustration captions excluded (Yoga machen, der Verein, die Mannschaft, gesunde Ernährung, YGT - Volleyballmannschaft)"
+      ],
+      "book_id": "A2_1"
+    },
+    {
+      "deck_id": "A2_1_L6",
+      "file": "A2_1_Lektion_6_deck.json",
+      "book": "A2.1 YGT Kurs- und Arbeitsbuch",
+      "cefr": "A2",
+      "lesson": "Lektion 6",
+      "lesson_number": 6,
+      "source_file": "A2_1_YGT_Kurs-_und_Arbeitsbuch_-_Print.pdf",
+      "source_page": null,
+      "heading": "Important phrases & vocabulary",
+      "topics": [
+        "Im Supermarkt",
+        "Weitere wichtige Wörter"
+      ],
+      "card_count": 37,
+      "status": "created",
+      "warnings": [
+        "SOURCE: extracted from a user-supplied page photo, not from the PDF text layer (which preserves no section headings for this chapter). Two headings: 'Im Supermarkt - in the supermarket' and 'Weitere wichtige Wörter - other important words'.",
+        "source_page not visible in the supplied photo crop",
+        "empty '( )' plural markers normalised to '-' (der Einkaufswagen, der Kassenzettel, der Liter)",
+        "bracketed optional forms preserved as printed: das [Kassen]Band, das Kilo[gramm], die [Papier]Tüte",
+        "'der Pfandflaschen-automat' printed hyphenated across two lines; recorded as der Pfandflaschenautomat",
+        "'da / dort' printed as one row and kept as one card",
+        "column runs verified against the photo: 14/14, 13/13, 5/5, 5/5"
+      ],
+      "book_id": "A2_1"
+    },
+    {
+      "deck_id": "A2_1_L7",
+      "file": "A2_1_Lektion_7_deck.json",
+      "book": "A2.1 YGT Kurs- und Arbeitsbuch",
+      "cefr": "A2",
+      "lesson": "Lektion 7",
+      "lesson_number": 7,
+      "source_file": "A2_1_YGT_Kurs-_und_Arbeitsbuch_-_Print.pdf",
+      "source_page": null,
+      "heading": "Important phrases & vocabulary",
+      "topics": [
+        "Veranstaltungen",
+        "Wichtige Verben",
+        "Weitere wichtige Wörter"
+      ],
+      "card_count": 40,
+      "status": "created",
+      "warnings": [
+        "source_page not printed on this page; text layer preserves no page number",
+        "heading gloss truncated in text layer: 'Weitere wichtige Wörter -' with 'other important words' printed at the right column edge; heading complete on page",
+        "umlaut plural markers normalised (=e/ze -> ¨e): die Bratwurst, der Weihnachtsmarkt, die Weißwurst",
+        "empty '()' plural markers normalised to '-' (der Besucher, der Künstler, der Sänger)",
+        "'Heiligabend' printed without article or plural; fields left empty",
+        "gloss OCR corrected: 'festival (mostiy music)' -> '(mostly music)'; 'feir for public entertainment' -> 'fair for public entertainment'",
+        "Wichtige Verben and Weitere sections print inline de+en pairs in both columns",
+        "stray illustration captions excluded (das Musikfestival, die Bühne banner; 'die Band (-s)' repeat; 'das Zelt (-e)' repeat)",
+        "column runs verified: 14/14, 14/14, 3+3, 3+3"
+      ],
+      "book_id": "A2_1"
+    },
+    {
+      "deck_id": "A2_1_L8",
+      "file": "A2_1_Lektion_8_deck.json",
+      "book": "A2.1 YGT Kurs- und Arbeitsbuch",
+      "cefr": "A2",
+      "lesson": "Lektion 8",
+      "lesson_number": 8,
+      "source_file": "A2_1_YGT_Kurs-_und_Arbeitsbuch_-_Print.pdf",
+      "source_page": null,
+      "heading": "Important phrases & vocabulary",
+      "topics": [
+        "Rund um die Gesundheit",
+        "Reflexive Verben",
+        "Alle Präpositionen mit AKK"
+      ],
+      "card_count": 37,
+      "status": "created",
+      "warnings": [
+        "source_page not printed on this page; text layer preserves no page number",
+        "THREE topics; entire page prints inline de+en pairs in both columns (no separated gloss runs); pair counts verified 10+10, 5+5, 4+3",
+        "heading OCR 'al/ about health' read as 'all about health'",
+        "umlaut plural markers normalised (=e/*e/*er -> ¨e/¨er): der Hausarzt, das Krankenhaus, der Notfall, der Vorschlag",
+        "empty '()' plural markers normalised to '-' (der Krankenwagen, das Wartezimmer)",
+        "um appears twice as printed - um (lokal) and um (temporal) - and is kept as two cards",
+        "run-together glosses separated: 'totakearest' -> 'to take a rest'; 'toremembersb./sth.' -> 'to remember sb./sth.'; 'waitingroom' -> 'waiting room'",
+        "gegen glossed 'against / *for' as printed; the * marks a false-friend sense (etwas gegen die Schmerzen = something FOR the pain)"
+      ],
+      "book_id": "A2_1"
+    },
+    {
+      "deck_id": "A2_1_L9",
+      "file": "A2_1_Lektion_9_deck.json",
+      "book": "A2.1 YGT Kurs- und Arbeitsbuch",
+      "cefr": "A2",
+      "lesson": "Lektion 9",
+      "lesson_number": 9,
+      "source_file": "A2_1_YGT_Kurs-_und_Arbeitsbuch_-_Print.pdf",
+      "source_page": 71,
+      "heading": "Important phrases & vocabulary",
+      "topics": [
+        "Im Restaurant",
+        "Weitere wichtige Wörter"
+      ],
+      "card_count": 52,
+      "status": "created",
+      "warnings": [
+        "source_page 71 IS printed in the footer of this page and is recorded",
+        "book prints 'die Hauptgericht (-e)'; the article is a misprint (Gericht is neuter, and the book itself prints 'das Gericht'); recorded as das Hauptgericht with this note",
+        "'der Nachtisch' and 'das Dessert' print as inline de+en pairs at the top of the right column; rest of the column is a German run followed by an English run (16/16 verified)",
+        "empty '()' plural markers normalised to '-' (der Löffel, das Messer, der Teller, der Pfeffer, der Kellner)",
+        "'die Pommes (frites)' printed with bracketed full form; kept as one card, plural field empty (Plural-only word)",
+        "die Geduld (-) and die Kräuterbutter (-) printed with (-): no plural",
+        "leading '. ' and '| ' OCR artifacts stripped from right-column rows",
+        "full sentences Stimmt so. / Das macht 10 €. kept whole as phrase cards",
+        "stray illustration captions excluded (der Teller / die Schüssel banner; 'das Salz (-e) der Pfeffer () die Speisekarte (-n)' repeat)",
+        "column runs verified: 18/18, 2 inline + 16/16, 8/8 inline-mixed, 8/8"
+      ],
+      "book_id": "A2_1"
+    },
+    {
+      "deck_id": "A2_1_L10",
+      "file": "A2_1_Lektion_10_deck.json",
+      "book": "A2.1 YGT Kurs- und Arbeitsbuch",
+      "cefr": "A2",
+      "lesson": "Lektion 10",
+      "lesson_number": 10,
+      "source_file": "A2_1_YGT_Kurs-_und_Arbeitsbuch_-_Print.pdf",
+      "source_page": null,
+      "heading": "Important phrases & vocabulary",
+      "topics": [
+        "Rund um die Arbeit",
+        "Weitere wichtige Wörter"
+      ],
+      "card_count": 42,
+      "status": "created",
+      "warnings": [
+        "source_page not printed on this page; text layer preserves no page number",
+        "heading OCR 'allabout work' read as 'all about work'",
+        "der/die Angestellte and der/die Vorgesetzte print '()' but are adjectival nouns whose plural is NOT identical to the singular; plural field left EMPTY rather than '-' (same policy as A2.2 L6 Erwachsene/Jugendliche)",
+        "umlaut plural markers normalised (*e/*er/=e -> ¨e/¨er): das Gehalt, der Lohn, die Angst, der Spaß",
+        "empty '()' plural markers normalised to '-' (der Arbeiter, der Fahrer)",
+        "'die Gehaltserhöhung (en)' printed without hyphen; recorded as -en",
+        "'die Fabrik (-en)' prints inline at the end of the first left-column row (layout artifact); it belongs to the right column and is carded there",
+        "stray caption excluded: 'der Lkw (-s) [Lastkraftwagen]' repeat (the expansion Lastkraftwagen noted here rather than invented into the card)",
+        "column runs verified: 12/12, 11/11, 10/10, 9/9"
+      ],
+      "book_id": "A2_1"
+    },
+    {
+      "deck_id": "A2_2_L1",
+      "file": "A2_2_Lektion_1_deck.json",
+      "book": "A2.2 YGT Kurs- und Arbeitsbuch",
+      "cefr": "A2",
+      "lesson": "Lektion 1",
+      "lesson_number": 1,
+      "source_file": "A2_2_YGT_Kursbuch_Arbeitsbuch_-_Print.pdf",
+      "source_page": 7,
+      "heading": "Important phrases & vocabulary",
+      "topics": [
+        "Reisevokabular",
+        "Reiseziele",
+        "Temporale Präpositionen",
+        "Weitere wichtige Wörter"
+      ],
+      "card_count": 46,
+      "status": "created",
+      "warnings": [
+        "source_page 7 IS printed in the footer of this page and is recorded",
+        "renamed from A2_2_L1_Reisen_flashcards.json to match the A2_2_Lektion_[N]_deck.json convention",
+        "book field normalised: the source filename was removed from the value so it matches L2-L10 (the filename lives in source_file)",
+        "umlaut plural markers OCR'd as '=' / 'ze' and normalised to ¨ / ¨e (der Abflug, die Ankunft, der (Reise)pass, der Flug, der Flughafen, die Großstadt)",
+        "empty '()' plural markers normalised to '-' (das Gebirge, der Koffer)",
+        "'die Alpen {piuraı)' normalised to (Plural)",
+        "'der (Reise)pass' optional-form brackets preserved as printed",
+        "proper names without printed plural markers left with an empty plural field (die Insel Rügen, der Rhein, Europa, Süddeutschland)",
+        "stray illustration captions excluded (das Gepäck, der Koffer, der Reisepass, das Visum, das Flugticket) - all already present as real column rows",
+        "column runs verified: 10/10, 10/10, 7/7, 7/7, 2/2, 2/2"
+      ],
+      "book_id": "A2_2"
+    },
+    {
+      "deck_id": "A2_2_L2",
+      "file": "A2_2_Lektion_2_deck.json",
+      "book": "A2.2 YGT Kurs- und Arbeitsbuch",
+      "cefr": "A2",
+      "lesson": "Lektion 2",
+      "lesson_number": 2,
+      "source_file": "A2_2_YGT_Kursbuch_Arbeitsbuch_-_Print.pdf",
+      "source_page": null,
+      "heading": "Important phrases & vocabulary",
+      "topics": [
+        "In einem Kaufhaus",
+        "Weitere wichtige Wörter"
+      ],
+      "card_count": 46,
+      "status": "created",
+      "warnings": [
+        "source_page not printed on this page; text layer preserves no page number",
+        "umlaut plural markers OCR'd as '*'/'='/absent, normalised to ¨e / ¨er (der Aufzug, der Stock, der Topf, das Kaufhaus)",
+        "empty '()' plural markers normalised to '-' (der Artikel, der Markenartikel)",
+        "'die Spielsachen /Plural)' normalised to (Plural)",
+        "gloss bracket damage repaired: 'ladies fashion] department' -> 'ladies [fashion] department'",
+        "'an]| probieren' normalised to 'an|probieren'",
+        "stray illustration captions excluded (die Damenabteilung, der Rabatt, die Größe, die Umkleide, an|probieren)",
+        "column runs verified: 18/18 and 5/5"
+      ],
+      "book_id": "A2_2"
+    },
+    {
+      "deck_id": "A2_2_L3",
+      "file": "A2_2_Lektion_3_deck.json",
+      "book": "A2.2 YGT Kurs- und Arbeitsbuch",
+      "cefr": "A2",
+      "lesson": "Lektion 3",
+      "lesson_number": 3,
+      "source_file": "A2_2_YGT_Kursbuch_Arbeitsbuch_-_Print.pdf",
+      "source_page": null,
+      "heading": "Important phrases & vocabulary",
+      "topics": [
+        "Studieren an einer Universität",
+        "Weitere wichtige Wörter"
+      ],
+      "card_count": 44,
+      "status": "created",
+      "warnings": [
+        "source_page not printed on this page; text layer preserves no page number",
+        "'(Pröp.)' OCR corrected to '(Präp.)' on seit / vor",
+        "umlaut plural markers normalised to ¨e / ¨er (der Abschluss, das Fach, der Sportplatz, der Stundenplan)",
+        "empty '()' plural markers normalised to '-' (der Bachelor, der Master, das Semester, der Mitbewohner)",
+        "'der Campus (/-se)' kept verbatim as printed",
+        "run-together glosses separated: 'alottodo' -> 'a lot to do'; 'afew/acouple of' -> 'a few / a couple of'",
+        "bracketed subject names [die] Kunst / [die] Mathematik / [die] Geografie/Erdkunde preserved as printed",
+        "column runs verified: 15/15, 14/14, 8/8, 7/7"
+      ],
+      "book_id": "A2_2"
+    },
+    {
+      "deck_id": "A2_2_L4",
+      "file": "A2_2_Lektion_4_deck.json",
+      "book": "A2.2 YGT Kurs- und Arbeitsbuch",
+      "cefr": "A2",
+      "lesson": "Lektion 4",
+      "lesson_number": 4,
+      "source_file": "A2_2_YGT_Kursbuch_Arbeitsbuch_-_Print.pdf",
+      "source_page": null,
+      "heading": "Important phrases & vocabulary",
+      "topics": [
+        "Dinge in einem Geldbeutel",
+        "Weitere wichtige Wörter"
+      ],
+      "card_count": 43,
+      "status": "created",
+      "warnings": [
+        "source_page not printed on this page; text layer preserves no page number",
+        "GLOSS-ORDER DEFECT (left column, Dinge in einem Geldbeutel): the printed English run is the German run with 'ID card (issued by government)' displaced from position 2 to position 13. Positional pairing would mis-glose 12 cards. Repaired by restoring the displaced gloss to der Personalausweis; all 13 pairings then match semantically.",
+        "en_source remains 'book' for the repaired rows: every gloss is the book's own printed text, only its ORDER was corrupted. No English was authored by Claude.",
+        "'das Bankkonto' appears twice (illustration caption + column row); caption excluded",
+        "stray illustration captions excluded (das Bankkonto, der Geldautomat, die Bankkarte, die Geheimzahl ein|geben)",
+        "contains der Führerschein / die Verkehrsregel / der Verkehr as printed vocabulary rows (retained per user approval)",
+        "right column and both Weitere runs verified clean: 13/13, 9/9, 8/8"
+      ],
+      "book_id": "A2_2"
+    },
+    {
+      "deck_id": "A2_2_L5",
+      "file": "A2_2_Lektion_5_deck.json",
+      "book": "A2.2 YGT Kurs- und Arbeitsbuch",
+      "cefr": "A2",
+      "lesson": "Lektion 5",
+      "lesson_number": 5,
+      "source_file": "A2_2_YGT_Kursbuch_Arbeitsbuch_-_Print.pdf",
+      "source_page": null,
+      "heading": "Important phrases & vocabulary",
+      "topics": [
+        "Wichtige Nomen",
+        "Wichtige Verben",
+        "Weitere wichtige Wörter"
+      ],
+      "card_count": 38,
+      "status": "created",
+      "warnings": [
+        "source_page not printed on this page; text layer preserves no page number",
+        "GLOSS-ORDER DEFECT (left column, Wichtige Nomen): printed English run is the German run with \"doctor's appointment\" displaced from position 2 to position 7. Positional pairing would mis-gloss 6 cards. Repaired by restoring it to der Arzttermin; all 7 pairings then match. Same defect class as Lektion 4.",
+        "en_source remains 'book' for repaired rows: glosses are the book's own printed text, only their ORDER was corrupted",
+        "umlaut plural markers normalised to ¨ / ¨e (der Biergarten, der Marktplatz, der Raum, die Innenstadt)",
+        "'das Licht' printed with no plural marker; plural field left empty",
+        "case-question brackets repaired: 'an ... vorbei /wo?]' -> 'an ... vorbei [wo?]'",
+        "run-together glosses separated: 'Just / atthe moment' -> 'just / at the moment'; 'to beaware.of' -> 'to be aware of'",
+        "Wichtige Verben left column printed as inline de/en pairs, not as two runs; read as printed",
+        "stray illustration captions excluded (...vom Fitnesstraining / ...von einem Konzert / ...von der Ärztin / ...vom Frisör / ..von Phil und Lisa)",
+        "column runs verified: 7/7, 7/7, 5/5, 5/5, 7/7, 7/7"
+      ],
+      "book_id": "A2_2"
+    },
+    {
+      "deck_id": "A2_2_L6",
+      "file": "A2_2_Lektion_6_deck.json",
+      "book": "A2.2 YGT Kurs- und Arbeitsbuch",
+      "cefr": "A2",
+      "lesson": "Lektion 6",
+      "lesson_number": 6,
+      "source_file": "A2_2_YGT_Kursbuch_Arbeitsbuch_-_Print.pdf",
+      "source_page": null,
+      "heading": "Important phrases & vocabulary",
+      "topics": [
+        "Internet & soziale Medien",
+        "Weitere wichtige Wörter"
+      ],
+      "card_count": 50,
+      "status": "created",
+      "warnings": [
+        "PREVIOUSLY SKIPPED, NOW RESOLVED: the two green section headings were absent from the PDF text layer and have been read from a user-supplied page image.",
+        "The headings are TWO, not three: 'Internet & soziale Medien - Internet & social media' and 'Weitere wichtige Wörter - other important words'. An earlier hypothesis of a three-heading layout (Wichtige Nomen / Wichtige Verben / Weitere wichtige Wörter) was WRONG and was not used.",
+        "Unlike other chapters this page does not separate verbs into their own section: installieren, kommentieren, kommunizieren and posten sit inside 'Internet & soziale Medien' alongside the nouns, and the verbs in the second block share a heading with adjectives and adverbs.",
+        "source_page not visible in the supplied image crop and not present in the text layer",
+        "empty '( )' plural markers normalised to '-' (der Internetnutzer, der Nutzer, der Sender, der Empfänger)",
+        "der/die Erwachsene and der/die Jugendliche print '( )' but are adjectival nouns whose plural is NOT identical to the singular; plural field left EMPTY rather than normalised to '-', to avoid recording a wrong form",
+        "'der YouTube-Kanal (˘e)' and 'der Kanal (˘e)' umlaut markers read from the image and recorded as ¨e",
+        "'soziale Medien (Plural)' and 'das soziale Netzwerk (-e)' printed with the adjective included; kept whole as printed",
+        "column runs verified against the image: 17/17, 17/17, 8/8, 8/8"
+      ],
+      "book_id": "A2_2"
+    },
+    {
+      "deck_id": "A2_2_L7",
+      "file": "A2_2_Lektion_7_deck.json",
+      "book": "A2.2 YGT Kurs- und Arbeitsbuch",
+      "cefr": "A2",
+      "lesson": "Lektion 7",
+      "lesson_number": 7,
+      "source_file": "A2_2_YGT_Kursbuch_Arbeitsbuch_-_Print.pdf",
+      "source_page": null,
+      "heading": "Important phrases & vocabulary",
+      "topics": [
+        "Sprachenlernen",
+        "Wichtige Verben",
+        "Weitere wichtige Wörter"
+      ],
+      "card_count": 39,
+      "status": "created",
+      "warnings": [
+        "source_page not printed on this page; text layer preserves no page number",
+        "'der Fehler)' OCR-damaged; plural marker unreadable, normalised to '-'",
+        "heading OCR 'Sprachenlernen - /anguage learning' read as 'language learning'",
+        "'der Satz (=e)' normalised to ¨e",
+        "empty '()' plural markers normalised to '-' (der Untertitel, das Vokabelkärtchen)",
+        "run-together gloss separated: 'goto bed' -> 'go to bed'",
+        "bracketed forms preserved as printed: schauen [= sehen], mal [= einmal], [Streit] bekommen",
+        "stray illustration captions excluded (Sätze auf|schreiben, Fehler korrigieren, viel sprechen, Zeitschriften lesen, Podcasts hören, Serien schauen)",
+        "column runs verified: 8/8, 8/8, 8/8, 7/7, 4/4, 4/4"
+      ],
+      "book_id": "A2_2"
+    },
+    {
+      "deck_id": "A2_2_L8",
+      "file": "A2_2_Lektion_8_deck.json",
+      "book": "A2.2 YGT Kurs- und Arbeitsbuch",
+      "cefr": "A2",
+      "lesson": "Lektion 8",
+      "lesson_number": 8,
+      "source_file": "A2_2_YGT_Kursbuch_Arbeitsbuch_-_Print.pdf",
+      "source_page": null,
+      "heading": "Important phrases & vocabulary",
+      "topics": [
+        "Bestellung und Versand",
+        "Wichtige Verben",
+        "Weitere wichtige Wörter"
+      ],
+      "card_count": 43,
+      "status": "created",
+      "warnings": [
+        "source_page not printed on this page; text layer preserves no page number",
+        "RESOLVED FROM EARLIER SESSION: the gloss 'low' for niedrig, previously reported missing, is present in the text layer. It was dropped by the earlier strings-based extraction, not absent from the book. en_source 'book', no Claude-authored gloss on this deck.",
+        "umlaut/empty plural markers normalised: 'der Absender ()', 'der Empfänger ()', 'der Einkaufswagen ( )', 'der Käufer ()', 'der Lieferwagen ( )', 'das Päckchen ()', 'der Schalter ()' -> '-'",
+        "'die Versandkosten /Plura!)' normalised to (Plural)",
+        "'an]bieten' -> 'an|bieten'; 'rein |passen' -> 'rein|passen'",
+        "stray illustration captions excluded (der Schalter, wiegen, die Versandkosten, der Lieferwagen, ab|geben, unterschreiben)",
+        "column runs verified: 9/9, 8/8, 9/9, 8/8, 5/5, 4/4"
+      ],
+      "book_id": "A2_2"
+    },
+    {
+      "deck_id": "A2_2_L9",
+      "file": "A2_2_Lektion_9_deck.json",
+      "book": "A2.2 YGT Kurs- und Arbeitsbuch",
+      "cefr": "A2",
+      "lesson": "Lektion 9",
+      "lesson_number": 9,
+      "source_file": "A2_2_YGT_Kursbuch_Arbeitsbuch_-_Print.pdf",
+      "source_page": null,
+      "heading": "Important phrases & vocabulary",
+      "topics": [
+        "Büro und Alltag",
+        "Wichtige Verben",
+        "Weitere wichtige Wörter"
+      ],
+      "card_count": 38,
+      "status": "created",
+      "warnings": [
+        "source_page not printed on this page; text layer preserves no page number",
+        "umlaut plural markers normalised: 'der Anfang (*e)' -> ¨e; 'das Gehalt (*er)' -> ¨er",
+        "empty '()' plural markers normalised to '-' (der Anfänger, der Arbeitgeber, der Rentner)",
+        "run-together gloss separated: 'end ofthe work day' -> 'end of the work day'; 'allthe time' -> 'all the time'",
+        "phrases kept whole and unsplit: Feierabend machen, Überstunden machen, (Geld) überweisen",
+        "stray illustration captions and speech-bubble OCR noise excluded (das Formular / aus|füllen / Feierabend machen / kündigen / die Firma wechseln / 'YGTLdt.' / 'neuier Arbeit-geber!')",
+        "column runs verified: 9/9, 9/9, 7/7, 7/7, 3/3, 3/3"
+      ],
+      "book_id": "A2_2"
+    },
+    {
+      "deck_id": "A2_2_L10",
+      "file": "A2_2_Lektion_10_deck.json",
+      "book": "A2.2 YGT Kurs- und Arbeitsbuch",
+      "cefr": "A2",
+      "lesson": "Lektion 10",
+      "lesson_number": 10,
+      "source_file": "A2_2_YGT_Kursbuch_Arbeitsbuch_-_Print.pdf",
+      "source_page": 79,
+      "heading": "Important phrases & vocabulary",
+      "topics": [
+        "Elektronik",
+        "Wichtige Verben",
+        "Weitere wichtige Wörter"
+      ],
+      "card_count": 38,
+      "status": "created",
+      "warnings": [
+        "source_page 79 IS printed in the footer of this page and is recorded",
+        "'der Anschluss (=e)' normalised to ¨e",
+        "empty '()' plural markers normalised to '-' (das Kabel, der Schalter)",
+        "gloss 'switch ( )' had trailing OCR artifact, recorded as 'switch'",
+        "run-together glosses separated: 'onthe way' -> 'on the way'; 'back then /atthat time' -> 'back then / at that time'",
+        "stray illustration captions excluded (die Steckdose, der Strom, das Licht, der Schalter, an|machen, aus|machen)",
+        "column runs verified: 8/8, 8/8, 4/4, 4/4, 7/7, 7/7"
+      ],
+      "book_id": "A2_2"
+    }
+  ]
+}
