@@ -1,0 +1,134 @@
+# Deutsch Decks
+
+A mobile-first, fully offline PWA for studying German A2.2 vocabulary flashcards
+with an SM-2-style spaced-repetition schedule. Plain HTML/CSS/JS — no framework,
+no build step, no backend, no accounts, no analytics. All learning data lives in
+your browser's `localStorage`, on your device only.
+
+## Local development
+
+Any static file server works. From this folder:
+
+```bash
+python -m http.server 8080
+```
+
+Then open <http://localhost:8080>.
+
+Notes:
+- Opening `index.html` directly via `file://` will **not** work (`fetch` of the
+  deck JSON and the service worker both require http/https).
+- The service worker caches aggressively. While developing, use your browser
+  DevTools → Application → Service Workers → "Update on reload", or bump
+  `CACHE_VERSION` in [sw.js](sw.js) to force a refresh.
+
+## Folder layout
+
+```
+Flashcards/
+├── index.html            app shell (single page)
+├── css/app.css
+├── js/                   store, srs, tts, decks, study, browse, app
+├── sw.js                 service worker (offline cache)
+├── manifest.webmanifest  PWA manifest
+├── icons/
+└── data/
+    ├── A2.2_deck.json            deck catalogue (see below)
+    └── A2.2_flashcards/          one JSON array of cards per lesson
+```
+
+## Adding a new chapter deck
+
+Static hosting cannot list directory contents, so decks are discovered through
+the catalogue file `data/A2.2_deck.json`:
+
+1. Put the new deck file in `data/A2.2_flashcards/`, e.g.
+   `A2_2_Lektion_11_deck.json` — a JSON **array** of card objects
+   (schema in [CLAUDE.md](CLAUDE.md)). Card `id`s must be unique across all decks.
+2. Add an entry to the `decks` array in `data/A2.2_deck.json`:
+
+   ```json
+   {
+     "deck_id": "A2_2_L11",
+     "file": "A2_2_Lektion_11_deck.json",
+     "lesson": "Lektion 11",
+     "lesson_number": 11,
+     "topics": ["…"],
+     "card_count": 40,
+     "status": "created"
+   }
+   ```
+
+   Only entries with `status: "created"` and a non-null `file` are loaded.
+3. Bump `CACHE_VERSION` in [sw.js](sw.js) (e.g. `dd-v1.0.1`) so the service
+   worker re-caches the data and users get the "New version available" banner.
+
+Alternatively, on the phone itself: **Decks → Import deck…** and pick a deck
+JSON file from the Files app. Imported decks are stored in `localStorage` and
+work offline immediately without touching the catalogue.
+
+## Deploying to GitHub Pages
+
+1. Create a GitHub repository and push this folder's contents to it
+   (the folder itself is the site root — `index.html` at the top level).
+2. Repository → Settings → Pages → Source: *Deploy from a branch*,
+   branch `main`, folder `/ (root)`.
+3. Wait for the Pages build, then open
+   `https://<username>.github.io/<repo>/` — the app registers its service
+   worker with a relative scope, so serving from a subpath works.
+
+After the first successful online load, the app and all catalogued decks are
+cached and the site works with no connection.
+
+> This folder lives in Google Drive. Don't try to serve it from Drive directly —
+> copy/push it to a real static host (GitHub Pages, Netlify, a local server).
+
+## Installing on your phone
+
+**iPhone (Safari):**
+1. Open the app URL in Safari (not Chrome — iOS only installs PWAs from Safari).
+2. Tap the Share button → **Add to Home Screen** → **Add**.
+3. Launch it from the home-screen icon once while online so everything caches.
+
+**Android (Chrome):**
+1. Open the app URL in Chrome.
+2. Tap ⋮ menu → **Add to Home screen** (or accept the install prompt) → **Install**.
+3. Launch it once while online so everything caches.
+
+## German voice setup & troubleshooting
+
+Audio uses the phone's built-in text-to-speech (Web Speech API) — nothing is
+sent anywhere. A German (`de-*`) voice must be installed on the device:
+
+- **iOS:** Settings → Accessibility → Spoken Content → Voices → German.
+  Download a voice (e.g. *Anna*). Higher-quality variants are listed under the
+  voice name.
+- **Android:** Settings → System → Languages → Text-to-speech output (varies by
+  vendor) → Google Speech Services → Install voice data → German.
+
+In the app: **Settings → German audio** to pick the voice and speed (0.7–1.1×,
+default 0.8×). Use *Test voice* to check it.
+
+Troubleshooting:
+- *Voice list is empty:* voices load asynchronously — reopen Settings after a
+  few seconds; make sure a German voice is installed (see above).
+- *No sound on iOS:* check the silent-mode switch and volume; audio only ever
+  starts from a tap, which iOS requires.
+- *Wrong language or robotic voice:* pick a different `de-*` voice in Settings;
+  install a higher-quality voice in the OS settings.
+
+## Backing up / restoring progress
+
+- **Settings → Export progress (JSON)** downloads a full backup (study
+  progress, settings, imported decks). Store it wherever you like — it is a
+  plain JSON file.
+- **Settings → Import progress…** shows a preview (how many cards, how many
+  would be overwritten) and asks for confirmation before changing anything.
+  Progress for cards not in the backup is kept.
+- Progress is keyed by card `id`, so re-downloading or re-importing a deck
+  never resets your schedule.
+- **Reset** (per-deck or everything) also lives in Settings, each behind a
+  confirmation dialog.
+
+⚠️ `localStorage` is per-browser and per-site. Clearing the browser's site data
+deletes your progress — export a backup first.
