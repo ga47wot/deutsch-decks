@@ -3,7 +3,7 @@
  */
 "use strict";
 
-const CACHE_VERSION = "dd-v1.0.2";
+const CACHE_VERSION = "dd-v1.0.3";
 const CATALOGUE = "data/A2.2_deck.json";
 const DECK_DIR = "data/A2.2_flashcards/";
 
