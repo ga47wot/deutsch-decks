@@ -5,6 +5,7 @@ const Browse = (() => {
   const $ = (id) => document.getElementById(id);
   let cards = [];
   let loaded = false;
+  let onlyBookmarked = false;
 
   async function load() {
     const deckIds = Decks.all().map(d => d.id);
@@ -31,6 +32,7 @@ const Browse = (() => {
   }
 
   function matches(card, q, lesson, topic) {
+    if (onlyBookmarked && !Store.isBookmarked(card.id)) return false;
     if (lesson && card._lessonLabel !== lesson) return false;
     if (topic && card.topic !== topic) return false;
     if (!q) return true;
@@ -38,9 +40,32 @@ const Browse = (() => {
     return hay.includes(q);
   }
 
+  function bookmarkToggle(card, onChange) {
+    const b = document.createElement("button");
+    b.type = "button";
+    b.className = "btn btn-small";
+    const paint = () => {
+      const on = Store.isBookmarked(card.id);
+      b.textContent = on ? "★ Bookmarked" : "☆ Bookmark";
+      b.setAttribute("aria-pressed", String(on));
+    };
+    paint();
+    b.addEventListener("click", (e) => {
+      e.stopPropagation();
+      Store.toggleBookmark(card.id);
+      paint();
+      if (onChange) onChange();
+    });
+    return b;
+  }
+
   function detailNode(card) {
     const d = document.createElement("div");
     d.className = "b-detail";
+    d.appendChild(bookmarkToggle(card, () => {
+      const star = d.parentElement && d.parentElement.querySelector(".browse-bm");
+      if (star) star.hidden = !Store.isBookmarked(card.id);
+    }));
     if (card.plural) {
       const p = document.createElement("div");
       p.className = "word-sub";
@@ -99,7 +124,12 @@ const Browse = (() => {
       const de = document.createElement("span");
       de.className = "b-de";
       de.lang = "de";
-      de.textContent = card.de;
+      const star = document.createElement("span");
+      star.className = "browse-bm";
+      star.textContent = "★ ";
+      star.hidden = !Store.isBookmarked(card.id);
+      de.appendChild(star);
+      de.appendChild(document.createTextNode(card.de));
       const en = document.createElement("span");
       en.className = "b-en";
       en.textContent = card.en;
@@ -130,6 +160,14 @@ const Browse = (() => {
   function invalidate() { loaded = false; }
 
   function init() {
+    $("browse-bookmarked").addEventListener("click", () => {
+      onlyBookmarked = !onlyBookmarked;
+      const b = $("browse-bookmarked");
+      b.textContent = onlyBookmarked ? "★ Bookmarked only" : "☆ Bookmarked only";
+      b.setAttribute("aria-pressed", String(onlyBookmarked));
+      b.classList.toggle("btn-primary", onlyBookmarked);
+      render();
+    });
     $("browse-search").addEventListener("input", render);
     $("browse-lesson").addEventListener("change", render);
     $("browse-topic").addEventListener("change", render);

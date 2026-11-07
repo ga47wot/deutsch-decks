@@ -5,6 +5,7 @@ const Study = (() => {
   const REQUEUE_HORIZON = 15 * 60 * 1000; // re-show within session if due this soon
 
   let mode = null;          // 'review' | 'cram'
+  let sourceCards = null;   // explicit card list (e.g. bookmarks) instead of selected decks
   let queue = [];           // cards waiting
   let current = null;
   let initialCount = 0;
@@ -24,9 +25,15 @@ const Study = (() => {
   /* ---------- queue building ---------- */
 
   async function buildQueue(m) {
-    const sel = Store.getSettings().selectedDecks;
-    const { cards, failures } = await Decks.getCardsMulti(sel);
-    if (failures.length) App.showNotice(failures.join(" "));
+    let cards;
+    if (sourceCards) {
+      cards = sourceCards;
+    } else {
+      const sel = Store.getSettings().selectedDecks;
+      const res = await Decks.getCardsMulti(sel);
+      cards = res.cards;
+      if (res.failures.length) App.showNotice(res.failures.join(" "));
+    }
 
     if (m === "cram") return shuffle(cards.slice());
 
@@ -190,12 +197,14 @@ const Study = (() => {
 
     current = queue.shift() || null;
     updateProgress();
+    App.refreshBookmarkBtn();
 
     if (!current) {
       $("study-card").hidden = true;
       $("study-actions").hidden = true;
       $("study-done").hidden = false;
       $("study-done-msg").textContent =
+        sourceCards ? "Bookmark review complete." :
         mode === "cram" ? "Cram round complete." : "No more cards due right now. Well done!";
       return;
     }
@@ -243,8 +252,10 @@ const Study = (() => {
     showNext();
   }
 
-  async function start(m) {
+  /* start(mode, cards?) — cards overrides the selected-deck source (bookmark review) */
+  async function start(m, cards) {
     mode = m;
+    sourceCards = Array.isArray(cards) ? cards : null;
     queue = await buildQueue(m);
     initialCount = queue.length;
     doneCount = 0;
@@ -261,11 +272,13 @@ const Study = (() => {
   function exit() {
     TTS.stop();
     mode = null;
+    sourceCards = null;
     queue = [];
     current = null;
   }
 
   function isFlipped() { return flipped; }
+  function currentCard() { return current; }
 
-  return { start, flip, gradeCurrent, exit, isFlipped };
+  return { start, flip, gradeCurrent, exit, isFlipped, currentCard };
 })();

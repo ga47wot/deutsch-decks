@@ -51,6 +51,7 @@
 
     <button id="btn-review" class="btn btn-primary btn-big">Review due cards</button>
     <button id="btn-cram" class="btn btn-big">Cram (no scheduling)</button>
+    <button id="btn-bookmarks" class="btn btn-big">★ Review bookmarks</button>
   </section>
 
   <!-- ============ STUDY SESSION ============ -->
@@ -59,6 +60,7 @@
       <button id="study-exit" class="btn btn-small" aria-label="End session">✕ End</button>
       <div class="progress-wrap" aria-hidden="true"><div id="study-progress" class="progress-bar"></div></div>
       <span id="study-count" class="muted"></span>
+      <button id="btn-bookmark" class="bookmark-btn" aria-label="Bookmark this card" aria-pressed="false">☆</button>
     </div>
 
     <div id="study-card" class="study-card" tabindex="0">
@@ -102,12 +104,21 @@
       <select id="browse-lesson" class="input"><option value="">All lessons</option></select>
       <select id="browse-topic" class="input"><option value="">All topics</option></select>
     </div>
-    <p id="browse-count" class="muted"></p>
+    <div class="deck-toolbar">
+      <button id="browse-bookmarked" class="btn btn-small" aria-pressed="false">☆ Bookmarked only</button>
+      <span id="browse-count" class="muted"></span>
+    </div>
     <ul id="browse-list" class="browse-list"></ul>
+  </section>
+
+  <!-- ============ GRAMMAR ============ -->
+  <section id="screen-grammar" class="screen" hidden>
+    <div id="grammar-content"></div>
   </section>
 
   <!-- ============ STATS ============ -->
   <section id="screen-stats" class="screen" hidden>
+    <div id="progress-overview"></div>
     <div id="stats-tables"></div>
   </section>
 
@@ -179,7 +190,8 @@
   <button class="tab active" data-screen="home"><span class="tab-icon">🎓</span>Study</button>
   <button class="tab" data-screen="decks"><span class="tab-icon">🗂️</span>Decks</button>
   <button class="tab" data-screen="browse"><span class="tab-icon">🔍</span>Browse</button>
-  <button class="tab" data-screen="stats"><span class="tab-icon">📊</span>Stats</button>
+  <button class="tab" data-screen="grammar"><span class="tab-icon">📖</span>Grammar</button>
+  <button class="tab" data-screen="stats"><span class="tab-icon">📈</span>Progress</button>
   <button class="tab" data-screen="settings"><span class="tab-icon">⚙️</span>Settings</button>
 </nav>
 
@@ -188,6 +200,7 @@
 <script src="js/tts.js"></script>
 <script src="js/decks.js"></script>
 <script src="js/study.js"></script>
+<script src="js/grammar.js"></script>
 <script src="js/browse.js"></script>
 <script src="js/app.js"></script>
 </body>

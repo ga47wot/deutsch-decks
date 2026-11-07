@@ -7,6 +7,7 @@ const Store = (() => {
     settings: "dd.settings.v1",
     customDecks: "dd.customDecks.v1",
     newCount: "dd.newCount.v1",
+    bookmarks: "dd.bookmarks.v1",
   };
 
   const DEFAULT_SETTINGS = {
@@ -70,6 +71,20 @@ const Store = (() => {
     writeJSON(KEYS.customDecks, customDecks);
   }
 
+  // ---- bookmarks: array of card ids ----
+  let bookmarks = new Set(readJSON(KEYS.bookmarks, []));
+  function getBookmarks() { return [...bookmarks]; }
+  function isBookmarked(id) { return bookmarks.has(id); }
+  function toggleBookmark(id) {
+    if (bookmarks.has(id)) bookmarks.delete(id); else bookmarks.add(id);
+    writeJSON(KEYS.bookmarks, [...bookmarks]);
+    return bookmarks.has(id);
+  }
+  function setBookmarks(ids) {
+    bookmarks = new Set(ids);
+    writeJSON(KEYS.bookmarks, [...bookmarks]);
+  }
+
   // ---- daily new-card counter ----
   function todayStr() {
     const d = new Date();
@@ -93,6 +108,7 @@ const Store = (() => {
       progress,
       settings,
       customDecks,
+      bookmarks: [...bookmarks],
     };
   }
 
@@ -101,12 +117,14 @@ const Store = (() => {
     progress = {};
     settings = Object.assign({}, DEFAULT_SETTINGS);
     customDecks = {};
+    bookmarks = new Set();
   }
 
   return {
     getRec, setRec, allProgress, replaceProgress, deleteRecs,
     getSettings, saveSettings,
     getCustomDecks, saveCustomDeck, deleteCustomDeck,
+    getBookmarks, isBookmarked, toggleBookmark, setBookmarks,
     newIntroducedToday, bumpNewIntroduced,
     exportAll, resetAll,
   };

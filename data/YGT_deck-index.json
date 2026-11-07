@@ -1,7 +1,7 @@
 {
   "generated": "2026-08-23",
   "phase": 1,
-  "note": "Master index across all YGT books (option 2a). A2.1 and A2.2 complete; B1.1 and B1.2 batches pending.",
+  "note": "Master index across all YGT books (option 2a). A2.1, A2.2 and B1.1 complete; B1.2 batch pending.",
   "books": [
     {
       "book_id": "A2_1",
@@ -22,7 +22,7 @@
       "book": "B1.1 YGT Kurs- und Arbeitsbuch",
       "cefr": "B1",
       "source_file": "B1-1_YGT_Kurs-_und_Arbeitsbuch_-_Print.pdf",
-      "status": "pending"
+      "status": "complete (L1-L10 created)"
     },
     {
       "book_id": "B1_2",
@@ -607,6 +607,297 @@
         "column runs verified: 8/8, 8/8, 4/4, 4/4, 7/7, 7/7"
       ],
       "book_id": "A2_2"
+    },
+    {
+      "deck_id": "B1_1_L1",
+      "file": "B1_1_Lektion_1_deck.json",
+      "book": "B1.1 YGT Kurs- und Arbeitsbuch",
+      "cefr": "B1",
+      "lesson": "Lektion 1",
+      "lesson_number": 1,
+      "source_file": "B1-1_YGT_Kurs-_und_Arbeitsbuch_-_Print.pdf",
+      "source_page": 7,
+      "heading": "Important phrases & vocabulary",
+      "topics": [
+        "Nomen",
+        "Verben",
+        "Weitere wichtige Wörter"
+      ],
+      "card_count": 39,
+      "status": "created",
+      "warnings": [
+        "source_page 7 IS printed in the footer ('Lesson 1 7') and is recorded",
+        "entire page prints inline de+en pairs in both columns; pair counts verified 8+7, 8+8, 4+4",
+        "die Allergie prints its governed case 'gegen + Ak' inline; recorded in de as 'gegen + Akk' ('Ak' completed to 'Akk', noted here)",
+        "'Keine Sorge!' is a printed row inside Nomen and is carded as a phrase there",
+        "umlaut plural marker 'der Gast (ze)' normalised to ¨e; empty '()' -> '-' (der Gastgeber, der Vegetarier)",
+        "gloss OCR: 'delay /ateness' -> 'delay / lateness'; 'to inform sb,' -> 'to inform sb.'",
+        "'an]|bieten'/'ab]|lehnen' -> 'an|bieten'/'ab|lehnen'",
+        "stray illustration captions excluded ((Essen) zu|bereiten, der Vegetarier, die Allergie / allergisch gegen, sich unterhalten mit/über)"
+      ],
+      "book_id": "B1_1"
+    },
+    {
+      "deck_id": "B1_1_L2",
+      "file": "B1_1_Lektion_2_deck.json",
+      "book": "B1.1 YGT Kurs- und Arbeitsbuch",
+      "cefr": "B1",
+      "lesson": "Lektion 2",
+      "lesson_number": 2,
+      "source_file": "B1-1_YGT_Kurs-_und_Arbeitsbuch_-_Print.pdf",
+      "source_page": null,
+      "heading": "Important phrases & vocabulary",
+      "topics": [
+        "Nomen",
+        "Verben",
+        "Weitere wichtige Wörter"
+      ],
+      "card_count": 53,
+      "status": "created",
+      "warnings": [
+        "source_page not printed on this page; text layer preserves no page number",
+        "right-column Weitere glosses (inexpensive ... on offer / sale) sit after a page-footer block in the text layer; located and aligned 6/6 - not missing",
+        "umlaut plural markers normalised: 'die Kraft (ze)' -> ¨e; 'der Unfall (=e)' -> ¨e",
+        "'der Berater)' OCR-damaged; plural marker unreadable, normalised to '-'",
+        "empty '()' -> '-' (das Lebensmittel)",
+        "das Gewicht (-) and die Werbung-style zero-plural markers kept as '-'",
+        "stray rows excluded: 'mit|machen' duplicate at the head of the right noun column; 'das Gewicht (-)' repeat; das Ziel (-e) erreichen caption; das Fitnesstraining banner",
+        "column runs verified: 10/10, 10/10, 11/11, 10/10, 6/6, 6/6"
+      ],
+      "book_id": "B1_1"
+    },
+    {
+      "deck_id": "B1_1_L3",
+      "file": "B1_1_Lektion_3_deck.json",
+      "book": "B1.1 YGT Kurs- und Arbeitsbuch",
+      "cefr": "B1",
+      "lesson": "Lektion 3",
+      "lesson_number": 3,
+      "source_file": "B1-1_YGT_Kurs-_und_Arbeitsbuch_-_Print.pdf",
+      "source_page": null,
+      "heading": "Important phrases & vocabulary",
+      "topics": [
+        "Nomen",
+        "Verben",
+        "Weitere wichtige Wörter"
+      ],
+      "card_count": 54,
+      "status": "created",
+      "warnings": [
+        "source_page not printed on this page; text layer preserves no page number",
+        "MISSING GLOSSES (new defect class): the printed English for 7 items does not survive anywhere in the text layer - auf|kaufen, berechnen, besitzen, dominieren, relativ, selbst, kein Wunder. These 7 cards carry en_source='claude' with standard glosses (to buy up / to calculate / to own / to dominate / relatively / oneself, by oneself / no wonder). Headwords are the book's; only the printed English is lost.",
+        "das Ergebnis gloss survives only as the fragment '/ outcome'; carded as en='outcome' with en_source='claude' (the lost leading token was likely 'result' but is not reconstructed into the field)",
+        "8 of 54 cards therefore have en_source='claude'; all others 'book'",
+        "several Nomen print inline de+en pairs (Artikel, Angestellte, Export, Fahrzeug, Geheimnis, Gesamtkosten, Import, Lager) while the rest use separated runs; both patterns read as printed",
+        "alles/nichts, jemals/niemals, überall/nirgends, jemand/niemand print as antonym pair rows ('#' = '≠') and are kept as ONE card per printed row",
+        "umlaut plural markers normalised: der Arbeitsplatz, der Vertrag, der Weltmarkt -> ¨e",
+        "der/die Angestellte: adjectival noun, plural field left EMPTY (standing policy)",
+        "empty '()' -> '-' (der Artikel, das Markenzeichen, das Unternehmen, das Lager, der Hersteller, das Zeichen)",
+        "stray cost-diagram OCR noise excluded (10.000 € .. 12.500 € insgesamt; der Vertrag/die Steuer/die Gesamtkosten banner)"
+      ],
+      "book_id": "B1_1"
+    },
+    {
+      "deck_id": "B1_1_L4",
+      "file": "B1_1_Lektion_4_deck.json",
+      "book": "B1.1 YGT Kurs- und Arbeitsbuch",
+      "cefr": "B1",
+      "lesson": "Lektion 4",
+      "lesson_number": 4,
+      "source_file": "B1-1_YGT_Kurs-_und_Arbeitsbuch_-_Print.pdf",
+      "source_page": null,
+      "heading": "Important phrases & vocabulary",
+      "topics": [
+        "Nomen",
+        "Verben",
+        "Weitere wichtige Wörter"
+      ],
+      "card_count": 49,
+      "status": "created",
+      "warnings": [
+        "source_page not printed on this page; text layer preserves no page number",
+        "column runs verified: 11/11, 11/11, 5/5, 5/5, 9/9, 8/8",
+        "umlaut plural markers normalised: der Abschluss, der Anfang, die Herkunft -> ¨e; der Biergarten (=) -> ¨",
+        "run-together glosses separated: 'certainlynot/ byno means', 'to getto know', 'bynow/now', 'atthe moment'",
+        "empty '()' -> '-' (der Politiker)",
+        "stray illustration captions and speech-bubble noise excluded (die Teilzeit/die Vollzeit/die Arbeitserlaubnis banner; 'Wohnung? Visum? ... Schwierigkeit (-en)' bubble; 'auf jeden Fall die Regierung (-en)' fragment)"
+      ],
+      "book_id": "B1_1"
+    },
+    {
+      "deck_id": "B1_1_L5",
+      "file": "B1_1_Lektion_5_deck.json",
+      "book": "B1.1 YGT Kurs- und Arbeitsbuch",
+      "cefr": "B1",
+      "lesson": "Lektion 5",
+      "lesson_number": 5,
+      "source_file": "B1-1_YGT_Kurs-_und_Arbeitsbuch_-_Print.pdf",
+      "source_page": null,
+      "heading": "Important phrases & vocabulary",
+      "topics": [
+        "Nomen",
+        "Verben",
+        "Weitere wichtige Wörter"
+      ],
+      "card_count": 54,
+      "status": "created",
+      "warnings": [
+        "source_page not printed on this page; text layer preserves no page number",
+        "right-column Weitere is a two-sub-column block (abbreviations + fixed phrases) whose gloss run is INTERLEAVED in the text layer: phrase glosses print before the abbreviation glosses. Pairing is nevertheless unambiguous (bzw.->respectively/or; ca.->circa; usw./etc.->and so on; z.B.->e.g.) and was matched semantically, not positionally. All en_source remain 'book'.",
+        "abbreviation rows print expansions in brackets (bzw. [beziehungsweise] etc.) and are kept whole as printed",
+        "'a. [circa]' OCR-damaged headword completed to 'ca. [circa]' (the gloss run prints 'ca. [circa/ approximately ]')",
+        "umlaut plural marker 'der Eindruck (ze)' -> ¨e; zero-plural markers (-) kept (der Druck, die Wahl, die Werbung, der Zeitdruck)",
+        "stray captions excluded (sich eignen für bubble, das Talent (-e) repeat, ehrlich gesagt / schaffen / Ich schaffe das! captions)",
+        "column runs verified: 10/10, 10/10, 5/5, 5/5, 12/12, 12/12"
+      ],
+      "book_id": "B1_1"
+    },
+    {
+      "deck_id": "B1_1_L6",
+      "file": "B1_1_Lektion_6_deck.json",
+      "book": "B1.1 YGT Kurs- und Arbeitsbuch",
+      "cefr": "B1",
+      "lesson": "Lektion 6",
+      "lesson_number": 6,
+      "source_file": "B1-1_YGT_Kurs-_und_Arbeitsbuch_-_Print.pdf",
+      "source_page": null,
+      "heading": "Important phrases & vocabulary",
+      "topics": [
+        "Nomen",
+        "Verben",
+        "Weitere wichtige Wörter"
+      ],
+      "card_count": 54,
+      "status": "created",
+      "warnings": [
+        "SOURCE: extracted from a user-supplied page photo; the PDF text layer preserves no section headings for this chapter (same defect as A2.2 L6 and A2.1 L6)",
+        "source_page not visible in the supplied photo crop",
+        "three headings on the page: Nomen / Verben / Weitere wichtige Wörter",
+        "governed cases printed inline are kept in de: klicken auf + Akk, sich melden bei + Dat, nach|denken über + Akk, enttäuscht von + Dat",
+        "der/das Log-in printed with double article, kept as printed",
+        "die Daten (Plural) and die Kundendaten (Plural) recorded with plural='Plural'",
+        "empty '( )' -> '-' (der Fernseher); zero-plural '(-)' kept (der Kundenservice, der Schutz, der Service, das Streaming, die Werbung)",
+        "column runs verified against the photo: 11/11, 11/11, 11/11, 11/11, 5/5, 5/5"
+      ],
+      "book_id": "B1_1"
+    },
+    {
+      "deck_id": "B1_1_L7",
+      "file": "B1_1_Lektion_7_deck.json",
+      "book": "B1.1 YGT Kurs- und Arbeitsbuch",
+      "cefr": "B1",
+      "lesson": "Lektion 7",
+      "lesson_number": 7,
+      "source_file": "B1-1_YGT_Kurs-_und_Arbeitsbuch_-_Print.pdf",
+      "source_page": null,
+      "heading": "Important phrases & vocabulary",
+      "topics": [
+        "Nomen",
+        "Verben",
+        "Weitere wichtige Wörter"
+      ],
+      "card_count": 54,
+      "status": "created",
+      "warnings": [
+        "source_page not printed on this page; text layer preserves no page number",
+        "page title OCR-split ('Important phrases' ... '& vocabulary'); heading complete on page",
+        "the four movement verbs print as a related block and are kept as four separate cards as printed: ziehen nach + Dat / in + Akk; um|ziehen nach / in; aus|ziehen aus + Dat; ein|ziehen in + Akk",
+        "umlaut plural markers normalised: der Boden (=) -> ¨; das Dorf (zer) -> ¨er; die Großstadt/Innenstadt/Kraft (ze) -> ¨e; der Rand/Stadtrand (=er/zer) -> ¨er; der Umzug (=e) -> ¨e",
+        "empty '()' -> '-' (der Einwohner, das Gebäude, der Makler, das Verkehrsmittel)",
+        "run-together glosses separated: 'means oftransportation', 'edge of acity', 'to moveto/in'",
+        "stray speech-bubble and caption noise excluded (Es ist auf dem Land..., die Ruhe (-)/ruhig, die Luft (-), das Dorf (=er) renovieren, der Umzug / um|ziehen banner)",
+        "column runs verified: 14/14, 14/14, 7/7, 7/7, 6/6, 6/6"
+      ],
+      "book_id": "B1_1"
+    },
+    {
+      "deck_id": "B1_1_L8",
+      "file": "B1_1_Lektion_8_deck.json",
+      "book": "B1.1 YGT Kurs- und Arbeitsbuch",
+      "cefr": "B1",
+      "lesson": "Lektion 8",
+      "lesson_number": 8,
+      "source_file": "B1-1_YGT_Kurs-_und_Arbeitsbuch_-_Print.pdf",
+      "source_page": null,
+      "heading": "Important phrases & vocabulary",
+      "topics": [
+        "Nomen",
+        "Verben",
+        "Weitere wichtige Wörter"
+      ],
+      "card_count": 54,
+      "status": "created",
+      "warnings": [
+        "source_page not printed on this page; text layer preserves no page number",
+        "umlaut plural marker 'der Abschluss (=e)' -> ¨e",
+        "empty '( )' -> '-' (der Politiker, der Zuhörer); zero-plural '(-)' kept (die Erde, der Klimawandel, der Schutz, die Technik, die Umwelt, der Umweltschutz)",
+        "das Thema (Themen) irregular plural kept as printed",
+        "verb-phrase rows kept whole: sich etwas leisten (können), ernst nehmen, recht haben, im Trend liegen; zu|stimmen + Dat governed case kept in de",
+        "run-together glosses separated: 'to be ableto afford sth', 'to subsidize /support'",
+        "stray speech-bubble and caption noise excluded (Aber der Staat gibt mir..., sich leisten (können) fördern / unterstützen banner, 'ernst nehmen' repeat, 'die Herausforderung (-en) zu|stimmen' fragment)",
+        "column runs verified: 14/14, 14/14, 8/8, 8/8, 5/5, 5/5"
+      ],
+      "book_id": "B1_1"
+    },
+    {
+      "deck_id": "B1_1_L9",
+      "file": "B1_1_Lektion_9_deck.json",
+      "book": "B1.1 YGT Kurs- und Arbeitsbuch",
+      "cefr": "B1",
+      "lesson": "Lektion 9",
+      "lesson_number": 9,
+      "source_file": "B1-1_YGT_Kurs-_und_Arbeitsbuch_-_Print.pdf",
+      "source_page": null,
+      "heading": "Important phrases & vocabulary",
+      "topics": [
+        "Nomen",
+        "Verben",
+        "Weitere wichtige Wörter"
+      ],
+      "card_count": 55,
+      "status": "created",
+      "warnings": [
+        "source_page not printed on this page; text layer preserves no page number",
+        "the Weitere left block is the book's sequencing-adverb set (16 rows from bevor to zum Schluss plus dazu) and is kept in printed order - it is the telc Schreiben scaffold",
+        "umlaut plural markers 'der Ablauf (ze)', 'der Anzug (ze)' -> ¨e",
+        "'das Klo (-s) /ugs.]' bracket damage repaired to 'das Klo [ugs.]'; gloss 'toilet [collogquial German]' -> '[colloquial German]'",
+        "reflexive brackets kept as printed: (sich) an|ziehen / aus|ziehen / um|ziehen / rasieren / schminken; 'an]ziehen' OCR -> 'an|ziehen'",
+        "run-together glosses separated: 'attheend', 'bynow', 'onthe way', 'secretiy' -> 'secretly', 'lastiy' -> 'lastly'",
+        "stray speech-bubble noise excluded (Manchmal vergesse ich abzuschließen..., einen Pullover/Normalerweise trage ich Jeans, Aber für Meetings..., tragen /an|haben, ab|schließen los|gehen banner)",
+        "column runs verified: 6/6, 6/6, 8/8, 8/8, 16/16, 11/11"
+      ],
+      "book_id": "B1_1"
+    },
+    {
+      "deck_id": "B1_1_L10",
+      "file": "B1_1_Lektion_10_deck.json",
+      "book": "B1.1 YGT Kurs- und Arbeitsbuch",
+      "cefr": "B1",
+      "lesson": "Lektion 10",
+      "lesson_number": 10,
+      "source_file": "B1-1_YGT_Kurs-_und_Arbeitsbuch_-_Print.pdf",
+      "source_page": null,
+      "heading": "Important phrases & vocabulary",
+      "topics": [
+        "Nomen",
+        "Verben",
+        "Weitere wichtige Wörter"
+      ],
+      "card_count": 53,
+      "status": "created",
+      "warnings": [
+        "source_page not printed on this page; text layer preserves no page number",
+        "der Notfall and das Objektiv print as inline de+en pairs at the head of the right noun column; the rest are separated runs (10/10 verified)",
+        "umlaut plural markers normalised: der Boden (=) -> ¨; der Campingplatz/Notfall/Schlafsack (=e) -> ¨e; der Rand (zer) -> ¨er; die Unterkunft (=e) -> ¨e",
+        "empty '()' -> '-' (das Abenteuer, das Feuer, der Geländewagen, das Taschenmesser)",
+        "die Kenntnisse [Plural] kept as printed with plural='Plural'",
+        "governed cases kept in de: Angst haben vor + Dativ, begeistert von + Dativ, treffen auf",
+        "campen and zelten are separate printed rows with the same gloss 'to camp' and remain two cards",
+        "'sauer' glossed 'to be angry [colloquial]' as printed (adjective glossed as a to-phrase in the book)",
+        "stray captions excluded (Ich habe das Zelt in 3 min..., campen / z[e]lten die Fähigkeit an|wenden banner, 'der Boden (=) die Hütte (-n) das Abenteuer ()' repeat row)",
+        "column runs verified: 13/13, 13/13 (2 inline + 10/10), 6/6, 6/6, 8/8, 8/8"
+      ],
+      "book_id": "B1_1"
     }
   ]
 }

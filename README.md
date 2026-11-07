@@ -35,7 +35,8 @@ Flashcards/
 └── data/
     ├── YGT_deck-index.json       master deck catalogue (see below)
     ├── A2.1_flaschcards/         A2.1 decks, one JSON array of cards per lesson
-    └── A2.2_flashcards/          A2.2 decks
+    ├── A2.2_flashcards/          A2.2 decks
+    └── B1.1_flashcards/          B1.1 decks
 ```
 
 ## Adding a new chapter deck

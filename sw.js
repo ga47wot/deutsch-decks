@@ -3,11 +3,12 @@
  */
 "use strict";
 
-const CACHE_VERSION = "dd-v1.1.0";
+const CACHE_VERSION = "dd-v1.4.1";
 const CATALOGUE = "data/YGT_deck-index.json";
 const BOOK_DIRS = {
   A2_1: "data/A2.1_flaschcards/",
   A2_2: "data/A2.2_flashcards/",
+  B1_1: "data/B1.1_flashcards/",
 };
 
 const SHELL = [
@@ -19,6 +20,7 @@ const SHELL = [
   "js/tts.js",
   "js/decks.js",
   "js/study.js",
+  "js/grammar.js",
   "js/browse.js",
   "js/app.js",
   "manifest.webmanifest",
@@ -30,7 +32,9 @@ const SHELL = [
 self.addEventListener("install", (event) => {
   event.waitUntil((async () => {
     const cache = await caches.open(CACHE_VERSION);
-    await cache.addAll(SHELL);
+    // cache: "reload" bypasses the HTTP cache so a new version never gets
+    // filled with stale shell files (mixed old/new versions break the app)
+    await cache.addAll(SHELL.map(u => new Request(u, { cache: "reload" })));
     // cache the catalogue plus every created deck it lists
     try {
       const res = await fetch(CATALOGUE, { cache: "no-cache" });

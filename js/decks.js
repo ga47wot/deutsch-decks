@@ -7,6 +7,7 @@ const Decks = (() => {
   const BOOK_DIRS = {
     A2_1: "data/A2.1_flaschcards/",
     A2_2: "data/A2.2_flashcards/",
+    B1_1: "data/B1.1_flashcards/",
   };
 
   let catalogueDecks = [];       // deck meta from data/A2.2_deck.json

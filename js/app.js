@@ -2,7 +2,7 @@
 "use strict";
 
 const App = (() => {
-  const VERSION = "1.1.0";
+  const VERSION = "1.4.1";
   const $ = (id) => document.getElementById(id);
 
   /* ================= modal ================= */
@@ -74,12 +74,13 @@ const App = (() => {
       t.classList.toggle("active", t.dataset.screen === name);
     }
     document.querySelector(".tab-bar").hidden = (name === "study");
-    const titles = { home: "Deutsch Decks", study: "Study", decks: "Decks", browse: "Browse", stats: "Stats", settings: "Settings" };
+    const titles = { home: "Deutsch Decks", study: "Study", decks: "Decks", browse: "Browse", grammar: "Grammar", stats: "Progress", settings: "Settings" };
     $("header-title").textContent = titles[name] || "Deutsch Decks";
 
     if (name === "home") renderHome();
     if (name === "decks") renderDecks();
     if (name === "browse") Browse.show();
+    if (name === "grammar") Grammar.show();
     if (name === "stats") renderStats();
     if (name === "settings") renderSettings();
   }
@@ -125,6 +126,9 @@ const App = (() => {
       ? names.join(", ")
       : "No decks selected — pick some in the Decks tab.";
     $("direction-select").value = Store.getSettings().direction;
+    const bmCount = Store.getBookmarks().length;
+    $("btn-bookmarks").textContent = "★ Review bookmarks (" + bmCount + ")";
+    $("btn-bookmarks").disabled = bmCount === 0;
 
     const row = $("home-stats");
     row.innerHTML = "";
@@ -309,9 +313,109 @@ const App = (() => {
     }
   }
 
-  /* ================= stats screen ================= */
+  /* ================= bookmarks ================= */
+
+  function refreshBookmarkBtn() {
+    const btn = $("btn-bookmark");
+    const card = Study.currentCard();
+    const on = !!card && Store.isBookmarked(card.id);
+    btn.hidden = !card;
+    btn.textContent = on ? "★" : "☆";
+    btn.classList.toggle("active", on);
+    btn.setAttribute("aria-pressed", String(on));
+  }
+
+  function toggleCurrentBookmark() {
+    const card = Study.currentCard();
+    if (!card) return;
+    Store.toggleBookmark(card.id);
+    refreshBookmarkBtn();
+  }
+
+  async function bookmarkedCards() {
+    const ids = new Set(Store.getBookmarks());
+    if (!ids.size) return [];
+    const { cards } = await Decks.getCardsMulti(Decks.all().map(d => d.id));
+    return cards.filter(c => ids.has(c.id));
+  }
+
+  async function startBookmarkReview() {
+    const cards = await bookmarkedCards();
+    if (!cards.length) { showNotice("No bookmarked cards yet. Tap ☆ on a card while studying or browsing."); return; }
+    if (await Study.start("cram", cards)) switchScreen("study");
+  }
+
+  /* ================= progress + stats screen ================= */
+
+  /* A lesson counts as complete when every card has been studied at least
+   * once and nothing is due today. */
+  async function renderProgress() {
+    const host = $("progress-overview");
+    host.innerHTML = "";
+    const decks = Decks.all().filter(d => d.source === "catalogue");
+    const byLevel = new Map();
+    for (const d of decks) {
+      if (!byLevel.has(d.level)) byLevel.set(d.level, []);
+      byLevel.get(d.level).push(d);
+    }
+
+    for (const [level, list] of byLevel) {
+      const rows = [];
+      let complete = 0;
+      for (const d of list) {
+        let s = null;
+        try { s = deckStats(await Decks.getCards(d.id)); } catch { /* uncached */ }
+        const done = !!s && s.total > 0 && s.unseen === 0 && s.due === 0;
+        if (done) complete += 1;
+        rows.push({ d, s, done });
+      }
+
+      const card = document.createElement("div");
+      card.className = "card-panel";
+      const h = document.createElement("h2");
+      h.textContent = `${level} — ${complete} / ${list.length} lessons complete`;
+      card.appendChild(h);
+      const wrap = document.createElement("div");
+      wrap.className = "progress-wrap prog-level-bar";
+      const bar = document.createElement("div");
+      bar.className = "progress-bar";
+      bar.style.width = Math.round((complete / list.length) * 100) + "%";
+      wrap.appendChild(bar);
+      card.appendChild(wrap);
+
+      for (const { d, s, done } of rows) {
+        const row = document.createElement("div");
+        row.className = "prog-row";
+        const title = document.createElement("span");
+        title.textContent = d.lessonLabel.replace(level + " · ", "");
+        const pw = document.createElement("div");
+        pw.className = "progress-wrap";
+        const pb = document.createElement("div");
+        pb.className = "progress-bar";
+        const studiedPct = s && s.total ? Math.round(((s.total - s.unseen) / s.total) * 100) : 0;
+        pb.style.width = studiedPct + "%";
+        pw.appendChild(pb);
+        pw.setAttribute("aria-label", studiedPct + "% of cards studied");
+        const status = document.createElement("span");
+        status.className = "prog-status" + (done ? " done" : "");
+        status.textContent = !s ? "not cached"
+          : done ? "✓ Complete"
+          : s.due > 0 ? `${s.due} due`
+          : `${s.unseen} unseen`;
+        row.append(title, pw, status);
+        card.appendChild(row);
+      }
+      host.appendChild(card);
+    }
+
+    const legend = document.createElement("p");
+    legend.className = "muted";
+    legend.textContent = "Bar = share of the lesson's cards you've studied at least once. ✓ Complete = every card studied and nothing due today; it reopens when reviews come due again.";
+    host.appendChild(legend);
+  }
 
   async function renderStats() {
+    await renderProgress();
     const host = $("stats-tables");
     host.innerHTML = "";
     const wrap = document.createElement("div");
@@ -439,12 +543,20 @@ const App = (() => {
       p.textContent = `Also restores ${Object.keys(data.customDecks).length} imported deck(s).`;
       box.appendChild(p);
     }
+    if (Array.isArray(data.bookmarks) && data.bookmarks.length) {
+      const p = document.createElement("p");
+      p.textContent = `Adds ${data.bookmarks.length} bookmark(s) to your existing ones.`;
+      box.appendChild(p);
+    }
 
     const yes = await modal("Import progress?", box, { okLabel: "Import", danger: overlapping.length > 0 });
     if (!yes) return;
 
     const merged = Object.assign({}, existing, incoming);
     Store.replaceProgress(merged);
+    if (Array.isArray(data.bookmarks)) {
+      Store.setBookmarks([...new Set([...Store.getBookmarks(), ...data.bookmarks.filter(id => typeof id === "string")])]);
+    }
     if (data.customDecks) {
       for (const [id, d] of Object.entries(data.customDecks)) {
         if (d && d.meta && Array.isArray(d.cards)) Decks.saveImportedDeck(id, d.meta, d.cards);
@@ -537,6 +649,9 @@ const App = (() => {
       if (await Study.start("cram")) switchScreen("study");
     });
 
+    $("btn-bookmarks").addEventListener("click", startBookmarkReview);
+    $("btn-bookmark").addEventListener("click", toggleCurrentBookmark);
+
     $("btn-flip").addEventListener("click", () => Study.flip());
     $("study-card").addEventListener("click", () => { if (!Study.isFlipped()) Study.flip(); });
     for (const b of document.querySelectorAll("#grade-buttons .grade")) {
@@ -591,6 +706,7 @@ const App = (() => {
       if (currentScreen !== "study" || e.target.tagName === "INPUT" || e.target.tagName === "SELECT") return;
       if (e.code === "Space") { e.preventDefault(); Study.flip(); }
       if (["1", "2", "3", "4"].includes(e.key)) Study.gradeCurrent(Number(e.key) - 1);
+      if (e.key === "b") toggleCurrentBookmark();
     });
   }
 
@@ -615,5 +731,5 @@ const App = (() => {
 
   document.addEventListener("DOMContentLoaded", init);
 
-  return { showNotice, updateDueBadge, modal, info };
+  return { showNotice, updateDueBadge, modal, info, refreshBookmarkBtn };
 })();
