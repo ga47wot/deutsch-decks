@@ -3,7 +3,7 @@
  */
 "use strict";
 
-const CACHE_VERSION = "dd-v1.4.2";
+const CACHE_VERSION = "dd-v1.4.3";
 const CATALOGUE = "data/YGT_deck-index.json";
 const BOOK_DIRS = {
   A2_1: "data/A2.1_flaschcards/",

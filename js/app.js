@@ -2,7 +2,7 @@
 "use strict";
 
 const App = (() => {
-  const VERSION = "1.4.2";
+  const VERSION = "1.4.3";
   const $ = (id) => document.getElementById(id);
 
   /* ================= modal ================= */
@@ -478,9 +478,14 @@ const App = (() => {
       return;
     }
     sel.disabled = false;
-    const err = TTS.getLastError();
-    note.textContent = voices.length + " German voice(s) available." +
-      (err ? " Last speech error: " + err + " — try another voice, or reinstall the German voice in the phone's settings." : "");
+    const st = TTS.getStatus();
+    let diag = "";
+    if (st.attempted) {
+      diag = st.started
+        ? " Last test: speech started. If you heard nothing, check the ring/silent switch and media volume."
+        : " Last test: speech did NOT start" + (st.error ? " (error: " + st.error + ")" : "") + ".";
+    }
+    note.textContent = voices.length + " German voice(s) available." + diag;
     const current = Store.getSettings().voiceURI;
     for (const v of voices) {
       const opt = new Option(v.name + " (" + v.lang + ")", v.voiceURI);
@@ -685,7 +690,7 @@ const App = (() => {
     });
     $("btn-test-voice").addEventListener("click", () => {
       TTS.speak("Guten Tag! Ich bin deine deutsche Stimme.", $("btn-test-voice"));
-      setTimeout(renderVoices, 2500);   // surface any engine error after the attempt
+      setTimeout(renderVoices, 3500);   // surface start/error status after the attempt (incl. retry)
     });
     document.addEventListener("dd-voices-changed", () => {
       if (currentScreen === "settings") renderVoices();
