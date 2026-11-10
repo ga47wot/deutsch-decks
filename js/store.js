@@ -17,6 +17,9 @@ const Store = (() => {
     selectedDecks: [],
     newPerDay: 20,
     theme: "system",
+    practiceLevel: 1,        // sentence practice: stage 1–6
+    practiceThemes: [],      // sentence practice: selected theme ids
+    speakAnswer: true,       // sentence practice: speak correct German on Check tap
   };
 
   function readJSON(key, fallback) {

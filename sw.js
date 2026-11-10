@@ -3,7 +3,9 @@
  */
 "use strict";
 
-const CACHE_VERSION = "dd-v1.4.3";
+const CACHE_VERSION = "dd-v1.5.1";
+const PRACTICE_DIR = "data/practice/";
+const PRACTICE_INDEX = PRACTICE_DIR + "index.json";
 const CATALOGUE = "data/YGT_deck-index.json";
 const BOOK_DIRS = {
   A2_1: "data/A2.1_flaschcards/",
@@ -22,6 +24,8 @@ const SHELL = [
   "js/study.js",
   "js/grammar.js",
   "js/browse.js",
+  "js/sentcheck.js",
+  "js/sentences.js",
   "js/app.js",
   "manifest.webmanifest",
   "icons/icon-192.png",
@@ -52,6 +56,20 @@ self.addEventListener("install", (event) => {
         }));
       }
     } catch (e) { /* offline install of an already-cached app */ }
+    // sentence-practice bank: index plus every theme file it lists
+    try {
+      const res = await fetch(PRACTICE_INDEX, { cache: "no-cache" });
+      if (res.ok) {
+        await cache.put(PRACTICE_INDEX, res.clone());
+        const idx = await res.json();
+        await Promise.all((idx.themes || []).map(async (t) => {
+          try {
+            const r = await fetch(PRACTICE_DIR + t.file, { cache: "no-cache" });
+            if (r.ok) await cache.put(PRACTICE_DIR + t.file, r);
+          } catch (e) { /* theme stays uncached */ }
+        }));
+      }
+    } catch (e) { /* offline install */ }
   })());
 });
 

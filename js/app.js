@@ -2,7 +2,7 @@
 "use strict";
 
 const App = (() => {
-  const VERSION = "1.4.3";
+  const VERSION = "1.5.1";
   const $ = (id) => document.getElementById(id);
 
   /* ================= modal ================= */
@@ -67,20 +67,24 @@ const App = (() => {
 
   function switchScreen(name) {
     if (currentScreen === "study" && name !== "study") Study.exit();
+    if (currentScreen === "practice" && name !== "practice") Sentences.exit();
     currentScreen = name;
     for (const s of document.querySelectorAll(".screen")) s.hidden = true;
     $("screen-" + name).hidden = false;
+    // sentence practice is entered from the Study home, so it keeps that tab lit
+    const tabFor = name === "practice" ? "home" : name;
     for (const t of document.querySelectorAll(".tab")) {
-      t.classList.toggle("active", t.dataset.screen === name);
+      t.classList.toggle("active", t.dataset.screen === tabFor);
     }
     document.querySelector(".tab-bar").hidden = (name === "study");
-    const titles = { home: "Deutsch Decks", study: "Study", decks: "Decks", browse: "Browse", grammar: "Grammar", stats: "Progress", settings: "Settings" };
+    const titles = { home: "Deutsch Decks", study: "Study", practice: "Sentence practice", decks: "Decks", browse: "Browse", grammar: "Grammar", stats: "Progress", settings: "Settings" };
     $("header-title").textContent = titles[name] || "Deutsch Decks";
 
     if (name === "home") renderHome();
     if (name === "decks") renderDecks();
     if (name === "browse") Browse.show();
     if (name === "grammar") Grammar.show();
+    if (name === "practice") Sentences.show();
     if (name === "stats") renderStats();
     if (name === "settings") renderSettings();
   }
@@ -657,6 +661,8 @@ const App = (() => {
     });
 
     $("btn-bookmarks").addEventListener("click", startBookmarkReview);
+    $("btn-practice").addEventListener("click", () => switchScreen("practice"));
+    $("btn-practice-back").addEventListener("click", () => switchScreen("home"));
     $("btn-bookmark").addEventListener("click", toggleCurrentBookmark);
 
     $("btn-flip").addEventListener("click", () => Study.flip());

@@ -28,7 +28,8 @@ Notes:
 Flashcards/
 ├── index.html            app shell (single page)
 ├── css/app.css
-├── js/                   store, srs, tts, decks, study, browse, app
+├── js/                   store, srs, tts, decks, study, grammar, browse,
+│                         sentcheck, sentences, app
 ├── sw.js                 service worker (offline cache)
 ├── manifest.webmanifest  PWA manifest
 ├── icons/
@@ -36,8 +37,27 @@ Flashcards/
     ├── YGT_deck-index.json       master deck catalogue (see below)
     ├── A2.1_flaschcards/         A2.1 decks, one JSON array of cards per lesson
     ├── A2.2_flashcards/          A2.2 decks
-    └── B1.1_flashcards/          B1.1 decks
+    ├── B1.1_flashcards/          B1.1 decks
+    └── practice/                 sentence-practice bank (index.json + one file per theme)
 ```
+
+## Sentence practice (EN → DE)
+
+Home → **Sentence practice**: pick everyday themes, set the level you have
+reached (six stages from A2.1 Lektion 1–5 to B1.1 Lektion 6–10), and translate
+up to 12 English sentences per session by typing the German. The app compares
+your sentence with the accepted answers **on the device** and points out word
+order, article/case, ending and spelling differences, shows the grammar pattern
+behind the sentence, and reads the correct German aloud when you tap Check
+(switchable). It is a comparison with known-good sentences, not a free grammar
+checker — if your sentence was right but phrased differently, tap
+"My answer was also correct". For a real second opinion, **Ask Claude** copies
+a ready-made question (the English, your German, the reference answer) to the
+clipboard so you can paste it into the Claude app; the app itself sends nothing.
+
+To add a theme: create `data/practice/<theme>.json` (item schema in
+[CLAUDE.md](CLAUDE.md), ids unique across the whole app), list it in
+`data/practice/index.json`, and bump `CACHE_VERSION`.
 
 ## Adding a new chapter deck
 

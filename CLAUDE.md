@@ -54,10 +54,41 @@ catalogue entries). ~200 cards have empty `article`/`plural` (phrases/verbs) —
 the UI must tolerate empty strings. Required for the app: `id`, `de`, `en`;
 everything else is optional and displayed when present.
 
+## Sentence practice (EN → DE, typed answers)
+
+- Bank: `data/practice/index.json` — `{ version, stages: [{n, label, grammar}],
+  themes: [{id, title, title_de, icon, file}] }` — plus one JSON **array** per
+  theme in the same folder. Stages are the coarse, cumulative grammar
+  progression 1–6 (A2.1 L1–5 … B1.1 L6–10); an item is offered when
+  `item.stage <= settings.practiceLevel`.
+- Item: `{ id, stage, en, cue?, de, alt?: [..], pattern, why, vocab?: [[de, en]] }`.
+  `id` (`SP-<THEME>-###`) must be unique across the whole app — it is the
+  progress key in `dd.progress.v1` (normal SRS record; not part of deck stats).
+  `de` + `alt` are ALL accepted answers; every one must be natural, complete,
+  grammatically correct German. `cue` disambiguates du/Sie etc.
+- Checking is on-device only (`js/sentcheck.js`): the input is aligned against
+  each accepted answer and differences are classified (word order,
+  article/case, pronoun case, ending, spelling, different/missing/extra word).
+  It is NOT a free grammar checker — never replace it with a network/AI call
+  (privacy rule). The "My answer was also correct" override covers valid
+  phrasings missing from `alt`; prefer adding common variants to `alt`.
+- Speech: the correct German answer is spoken by the Check tap/Enter itself
+  (a user gesture; `settings.speakAnswer`, default on). This is the only place
+  speech starts without tapping a 🔊 button — keep it synchronous in that
+  handler and never speak the English.
+- "Ask Claude" on the feedback screen only copies a ready-made question
+  (English, the learner's German, the reference answer, level) to the
+  clipboard for the user to paste into the Claude app themself. The app sends
+  nothing — do not turn it into a link with the text in the URL or an API call.
+- New themes are picked up from the index by both `js/sentences.js` and the
+  service worker's install step; bump `CACHE_VERSION`.
+
 ## Storage keys (localStorage)
 
 - `dd.progress.v1` — `{ [cardId]: {st, step, ef, ivl, due, reps, lapses, last} }`
-- `dd.settings.v1` — direction, rate, voiceURI, selectedDecks, newPerDay, theme
+  (also holds sentence-practice records under `SP-…` ids)
+- `dd.settings.v1` — direction, rate, voiceURI, selectedDecks, newPerDay, theme,
+  practiceLevel (1–6), practiceThemes (ids; empty = all), speakAnswer
 - `dd.customDecks.v1` — manually imported decks
 - `dd.newCount.v1` — per-day new-card counter
 - `dd.bookmarks.v1` — array of bookmarked card ids (included in export/import)
@@ -87,7 +118,8 @@ and must survive deck re-imports.
    lesson and topic filters work.
 6. Direction switch: EN→DE shows English front, German back.
 7. TTS: speaker buttons on `de`, `s1_de`, `s2_de`; German voices only in the
-   picker; rate slider 0.7–1.1; no autoplay of anything.
+   picker; rate slider 0.7–1.1; no autoplay of anything (only documented
+   exception: the Check tap in sentence practice speaks the correct German).
 8. Export progress downloads JSON; re-import shows preview and asks before
    overwriting.
 9. Offline: load once, DevTools → Network → Offline, reload — app and decks
@@ -103,3 +135,12 @@ and must survive deck re-imports.
     bookmarks survive export/import.
 14. Progress tab: per-level "N / 10 lessons complete" bars; a deck shows
     ✓ Complete only when it has 0 unseen AND 0 due cards.
+15. Sentence practice (Home → ✍️): theme buttons toggle (last one can't be
+    deselected); the level slider updates label, grammar list and count and
+    persists; a session shows ≤ 12 sentences. A wrong answer shows the marked
+    diff, issue list, pattern tip and speaks the correct German (not when
+    "Speak the correct German answer…" is unticked); "Try again", "My answer was also
+    correct" and "Next" work; "Ask Claude" copies the question to the
+    clipboard (no network request); a missed sentence comes back at the end; ✕ End
+    restores the tab bar; every accepted answer of every item checks as
+    correct; works offline.

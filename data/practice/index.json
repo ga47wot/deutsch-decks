@@ -1,0 +1,16 @@
+{
+  "version": 1,
+  "stages": [
+    { "n": 1, "label": "A2.1 · Lektion 1–5", "grammar": "Präsens, modal verbs, Akkusativ & Dativ basics, Perfekt, separable verbs, imperative, possessives" },
+    { "n": 2, "label": "A2.1 · Lektion 6–10", "grammar": "Wechselpräpositionen, weil / dass clauses, comparative, reflexive verbs, verbs with Dativ" },
+    { "n": 3, "label": "A2.2 · Lektion 1–5", "grammar": "wenn clauses, adjective endings, Präteritum of sein / haben / modals, indirect questions, polite Konjunktiv II" },
+    { "n": 4, "label": "A2.2 · Lektion 6–10", "grammar": "relative clauses (Nom./Akk.), als vs. wenn, deshalb / trotzdem, verbs with prepositions" },
+    { "n": 5, "label": "B1.1 · Lektion 1–5", "grammar": "obwohl, Konjunktiv II (unreal), Infinitiv mit zu / um … zu, relative clauses with prepositions" },
+    { "n": 6, "label": "B1.1 · Lektion 6–10", "grammar": "Passiv, Plusquamperfekt + nachdem, seitdem / während, je … desto" }
+  ],
+  "themes": [
+    { "id": "supermarket", "title": "Supermarket", "title_de": "Im Supermarkt", "icon": "🛒", "file": "supermarket.json" },
+    { "id": "doctor", "title": "At the doctor", "title_de": "Beim Arzt", "icon": "🩺", "file": "doctor.json" },
+    { "id": "directions", "title": "Asking for directions", "title_de": "Nach dem Weg fragen", "icon": "🧭", "file": "directions.json" }
+  ]
+}

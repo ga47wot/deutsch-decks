@@ -52,6 +52,44 @@
     <button id="btn-review" class="btn btn-primary btn-big">Review due cards</button>
     <button id="btn-cram" class="btn btn-big">Cram (no scheduling)</button>
     <button id="btn-bookmarks" class="btn btn-big">★ Review bookmarks</button>
+    <button id="btn-practice" class="btn btn-big">✍️ Sentence practice (EN → DE)</button>
+  </section>
+
+  <!-- ============ SENTENCE PRACTICE ============ -->
+  <section id="screen-practice" class="screen" hidden>
+    <div id="practice-setup">
+      <p class="muted">Translate everyday English sentences into German. Type your answer; the app compares it with the correct sentence, shows what differs and why, and reads the correct German aloud.</p>
+      <div class="card-panel">
+        <h2>Themes</h2>
+        <div id="practice-themes" class="theme-grid"></div>
+      </div>
+      <div class="card-panel">
+        <h2>Level you have reached</h2>
+        <input type="range" id="practice-level" min="1" max="6" step="1" value="1" aria-label="Level you have reached">
+        <p id="practice-level-label" class="level-label"></p>
+        <ul id="practice-grammar" class="grammar-list"></ul>
+      </div>
+      <div class="card-panel">
+        <label class="check-row"><input type="checkbox" id="practice-speak"> <span>Speak the correct German answer when I tap Check</span></label>
+        <p id="practice-count" class="muted"></p>
+      </div>
+      <button id="btn-practice-start" class="btn btn-primary btn-big">Start practice</button>
+      <button id="btn-practice-back" class="btn btn-big">← Back to Study</button>
+    </div>
+
+    <div id="practice-session" hidden>
+      <div class="study-top">
+        <button id="practice-exit" class="btn btn-small" aria-label="End practice">✕ End</button>
+        <div class="progress-wrap" aria-hidden="true"><div id="practice-progress" class="progress-bar"></div></div>
+        <span id="practice-pos" class="muted"></span>
+      </div>
+      <div id="practice-card" class="card-panel"></div>
+      <div id="practice-done" class="card-panel center" hidden>
+        <h2>Practice finished 🎉</h2>
+        <p id="practice-done-msg" class="muted"></p>
+        <button id="btn-practice-again" class="btn btn-primary">Back to themes</button>
+      </div>
+    </div>
   </section>
 
   <!-- ============ STUDY SESSION ============ -->
@@ -202,6 +240,8 @@
 <script src="js/study.js"></script>
 <script src="js/grammar.js"></script>
 <script src="js/browse.js"></script>
+<script src="js/sentcheck.js"></script>
+<script src="js/sentences.js"></script>
 <script src="js/app.js"></script>
 </body>
 </html>
