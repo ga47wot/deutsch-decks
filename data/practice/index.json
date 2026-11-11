@@ -11,6 +11,8 @@
   "themes": [
     { "id": "supermarket", "title": "Supermarket", "title_de": "Im Supermarkt", "icon": "🛒", "file": "supermarket.json" },
     { "id": "doctor", "title": "At the doctor", "title_de": "Beim Arzt", "icon": "🩺", "file": "doctor.json" },
-    { "id": "directions", "title": "Asking for directions", "title_de": "Nach dem Weg fragen", "icon": "🧭", "file": "directions.json" }
+    { "id": "directions", "title": "Asking for directions", "title_de": "Nach dem Weg fragen", "icon": "🧭", "file": "directions.json" },
+    { "id": "engineering", "title": "At work: electronics & photonics", "title_de": "In der Firma (Elektronik / Photonik)", "icon": "🔬", "file": "engineering.json" },
+    { "id": "networking", "title": "Start-up networking event", "title_de": "Networking für Gründer", "icon": "🤝", "file": "networking.json" }
   ]
 }

@@ -69,6 +69,9 @@ everything else is optional and displayed when present.
 - Checking is on-device only (`js/sentcheck.js`): the input is aligned against
   each accepted answer and differences are classified (word order,
   article/case, pronoun case, ending, spelling, different/missing/extra word).
+  Digits for 2–12, 20, 100 count as the written word, and "in dem" = "im" etc.
+  A hyphenated word ("Start-up") is one token — avoid such words in answers or
+  list every spelling in `alt`.
   It is NOT a free grammar checker — never replace it with a network/AI call
   (privacy rule). The "My answer was also correct" override covers valid
   phrasings missing from `alt`; prefer adding common variants to `alt`.
@@ -83,7 +86,9 @@ everything else is optional and displayed when present.
   re-queued at the end of the session (max 2×).
 - A session only contains due + new sentences; known, not-yet-due sentences
   are repeated only when nothing is new or due ("Practise anyway").
-- "✓ Mastered — don't show this again" puts the id in `dd.practiceDone.v1`;
+- "✓ Mastered — don't show this again" (on the question itself, where it
+  skips without an answer and writes no SRS grade, and on the feedback
+  screen) puts the id in `dd.practiceDone.v1`;
   such sentences are excluded from the pool until "Bring back N mastered
   sentences" on the setup screen.
 - The unfinished session is saved to `dd.practiceSession.v1` after every

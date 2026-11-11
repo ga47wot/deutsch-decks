@@ -315,6 +315,11 @@ const Sentences = (() => {
     bCheck.addEventListener("click", check);
     row.append(bHint, bCheck);
     card.append(row);
+    // known already: retire the sentence without typing it
+    const bKnown = el("button", "btn btn-small override-btn", "✓ Mastered — skip, don't show this again");
+    bKnown.type = "button";
+    bKnown.addEventListener("click", skipMastered);
+    card.append(bKnown);
     if (state.hint) { state.hint -= 1; showHint(hintBox, bHint); }
   }
 
@@ -411,6 +416,7 @@ const Sentences = (() => {
     bDone.type = "button";
     bDone.addEventListener("click", () => {
       Store.addPracticeDone(current.id);
+      tally.mastered = (tally.mastered || 0) + 1;
       commit(state.firstVerdict, true);
     });
     card.append(bDone);
@@ -488,6 +494,16 @@ const Sentences = (() => {
     }
   }
 
+  /* "Mastered" tapped on the question itself: hide the sentence without an
+   * answer. No SRS grade is written — nothing was actually answered. */
+  function skipMastered() {
+    if (!current) return;
+    Store.addPracticeDone(current.id);
+    tally.mastered = (tally.mastered || 0) + 1;
+    done += 1;
+    next();
+  }
+
   /* grade the item once, when the learner moves on */
   function commit(verdict, noRequeue) {
     const now = Date.now();
@@ -515,7 +531,9 @@ const Sentences = (() => {
     $("practice-done").hidden = false;
     $("practice-progress").style.width = "100%";
     $("practice-pos").textContent = step + " / " + step;
-    $("practice-done-msg").textContent = total + " sentences · " + tally.correct + " correct · " + tally.almost + " almost · " + tally.wrong + " to work on. Sentences you missed come back sooner next time.";
+    $("practice-done-msg").textContent = total + " sentences · " + tally.correct + " correct · " + tally.almost + " almost · " + tally.wrong + " to work on"
+      + (tally.mastered ? " · " + tally.mastered + " marked as mastered" : "")
+      + ". Sentences you missed come back sooner next time.";
   }
 
   /* leave the session (also called when another screen opens) */

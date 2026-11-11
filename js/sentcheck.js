@@ -11,9 +11,13 @@
 const SentCheck = (() => {
   const PUNCT = /[.,!?;:"„“”‚‘’()«»…–—]/g;
 
+  // digits typed for small numbers count as the written word ("2 Jahren" = "zwei Jahren")
+  const NUM = { "2": "zwei", "3": "drei", "4": "vier", "5": "fuenf", "6": "sechs", "7": "sieben", "8": "acht", "9": "neun", "10": "zehn", "11": "elf", "12": "zwoelf", "20": "zwanzig", "100": "hundert" };
+
   function canon(w) {
-    return w.toLowerCase()
+    const c = w.toLowerCase()
       .replace(/ä/g, "ae").replace(/ö/g, "oe").replace(/ü/g, "ue").replace(/ß/g, "ss");
+    return NUM[c] || c;
   }
 
   /* -> [{disp, raw, c}] — disp keeps punctuation for display, raw/c are the bare word */

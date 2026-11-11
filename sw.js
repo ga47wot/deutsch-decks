@@ -3,7 +3,7 @@
  */
 "use strict";
 
-const CACHE_VERSION = "dd-v1.5.2";
+const CACHE_VERSION = "dd-v1.5.3";
 const PRACTICE_DIR = "data/practice/";
 const PRACTICE_INDEX = PRACTICE_DIR + "index.json";
 const CATALOGUE = "data/YGT_deck-index.json";
