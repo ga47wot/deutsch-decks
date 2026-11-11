@@ -68,9 +68,40 @@ const Sentences = (() => {
     const out = [];
     for (const t of bank.themes) {
       if (!sel.has(t.id)) continue;
-      for (const it of t.items) if (it.stage <= lv) out.push(it);
+      for (const it of t.items) if (it.stage <= lv && !Store.isPracticeDone(it.id)) out.push(it);
     }
     return out;
+  }
+  /* sentences of the current selection that were marked "mastered" */
+  function masteredInSelection() {
+    const lv = level(), sel = new Set(selectedThemes());
+    const out = [];
+    for (const t of bank.themes) {
+      if (!sel.has(t.id)) continue;
+      for (const it of t.items) if (it.stage <= lv && Store.isPracticeDone(it.id)) out.push(it);
+    }
+    return out;
+  }
+
+  /* An unfinished session saved by save(): phones drop a backgrounded page
+   * from memory, and without this the learner would start over on return. */
+  const SESSION_MAX_AGE = 24 * 60 * 60 * 1000;
+  function savedSession() {
+    const s = Store.getPracticeSession();
+    if (!s || !Array.isArray(s.ids) || !bank) return null;
+    if (Date.now() - (s.t || 0) > SESSION_MAX_AGE) { Store.clearPracticeSession(); return null; }
+    const byId = {};
+    for (const t of bank.themes) for (const it of t.items) byId[it.id] = it;
+    const items = s.ids.map(id => byId[id]).filter(it => it && !Store.isPracticeDone(it.id));
+    if (!items.length) { Store.clearPracticeSession(); return null; }
+    return { items, s };
+  }
+  function save() {
+    if (!current) return;
+    Store.savePracticeSession({
+      t: Date.now(), ids: [current.id].concat(queue.map(it => it.id)),
+      step, total, done, tally, requeues,
+    });
   }
 
   // ---------- setup screen ----------
@@ -131,8 +162,25 @@ const Sentences = (() => {
       const rec = Store.getRec(it.id);
       if (!rec) fresh++; else if (SRS.isDueNow(rec, now)) due++;
     }
-    $("practice-count").textContent = items.length + " sentences at this level · " + fresh + " new · " + due + " due for review. A session has up to " + SESSION_SIZE + ".";
-    $("btn-practice-start").disabled = items.length === 0;
+    const mastered = masteredInSelection().length;
+    let msg = items.length + " sentences at this level · " + fresh + " new · " + due + " due for review";
+    if (mastered) msg += " · " + mastered + " mastered (hidden)";
+    msg += ". A session has up to " + SESSION_SIZE + ".";
+    if (items.length && !fresh && !due) msg += " Nothing is new or due right now — a session would repeat sentences you already got right.";
+    if (!items.length && mastered) msg = "You have marked all " + mastered + " sentences at this level as mastered. Raise the level, add a theme, or bring them back.";
+    $("practice-count").textContent = msg;
+
+    const bRestore = $("btn-practice-restore");
+    bRestore.hidden = mastered === 0;
+    bRestore.textContent = "↺ Bring back " + mastered + " mastered sentence" + (mastered === 1 ? "" : "s");
+
+    const saved = savedSession();
+    const bResume = $("btn-practice-resume"), bStart = $("btn-practice-start");
+    bResume.hidden = !saved;
+    if (saved) bResume.textContent = "▶ Resume session (" + saved.items.length + " sentence" + (saved.items.length === 1 ? "" : "s") + " left)";
+    bStart.classList.toggle("btn-primary", !saved);
+    bStart.textContent = saved ? "Start a new session" : (items.length && !fresh && !due ? "Practise anyway" : "Start practice");
+    bStart.disabled = items.length === 0;
   }
 
   // ---------- session ----------
@@ -149,17 +197,39 @@ const Sentences = (() => {
     const rest = shuffle(fresh.filter(it => it.stage < lv - 1));
     const mixed = [];
     while (top.length || rest.length) mixed.push(...top.splice(0, 2), ...rest.splice(0, 1));
+    const fresh2 = due.concat(mixed);
+    if (fresh2.length) return fresh2.slice(0, SESSION_SIZE);
+    // nothing new or due: only then repeat known sentences, longest-unseen first
     seen.sort((a, b) => Store.getRec(a.id).last - Store.getRec(b.id).last);
-    return due.concat(mixed, seen).slice(0, SESSION_SIZE);
+    return seen.slice(0, SESSION_SIZE);
   }
 
   function start() {
     if (!bank) return;
     queue = buildQueue();
     if (!queue.length) return;
+    Store.clearPracticeSession();
     total = queue.length; done = 0; step = 0;
     tally = { correct: 0, almost: 0, wrong: 0 };
     for (const k of Object.keys(requeues)) delete requeues[k];
+    begin();
+  }
+
+  function resume() {
+    const saved = bank && savedSession();
+    if (!saved) { if (bank) renderSetup(); return; }
+    const s = saved.s;
+    queue = saved.items;
+    step = Math.max(0, (Number(s.step) || 1) - 1);
+    total = Number(s.total) || queue.length;
+    done = Number(s.done) || 0;
+    tally = Object.assign({ correct: 0, almost: 0, wrong: 0 }, s.tally);
+    for (const k of Object.keys(requeues)) delete requeues[k];
+    Object.assign(requeues, s.requeues);
+    begin();
+  }
+
+  function begin() {
     $("practice-setup").hidden = true;
     $("practice-session").hidden = false;
     $("practice-done").hidden = true;
@@ -181,6 +251,7 @@ const Sentences = (() => {
     current = queue.shift();
     step += 1;
     state = { firstVerdict: null, hint: 0, lastInput: "" };
+    save();
     updateProgress();
     renderQuestion();
   }
@@ -336,6 +407,13 @@ const Sentences = (() => {
       card.append(bOver);
     }
     // second opinion: copies a ready-made prompt; the app itself sends nothing
+    const bDone = el("button", "btn btn-small override-btn", "✓ Mastered — don't show this again");
+    bDone.type = "button";
+    bDone.addEventListener("click", () => {
+      Store.addPracticeDone(current.id);
+      commit(state.firstVerdict, true);
+    });
+    card.append(bDone);
     const bAsk = el("button", "btn btn-small override-btn", "📋 Ask Claude — copy my answer as a question");
     bAsk.type = "button";
     const askNote = el("div", "ask-note");
@@ -411,13 +489,16 @@ const Sentences = (() => {
   }
 
   /* grade the item once, when the learner moves on */
-  function commit(verdict) {
+  function commit(verdict, noRequeue) {
     const now = Date.now();
-    const g = verdict === "correct" ? (state.hint ? 1 : 2) : verdict === "almost" ? 1 : 0;
-    Store.setRec(current.id, SRS.grade(Store.getRec(current.id), g, now));
     const n = requeues[current.id] || 0;
+    // Typed correctly at the first go without a hint = known: Easy, so it stays
+    // away for days instead of the flashcard learning steps (10 min). With a
+    // hint or on a second pass: Good (back next session). Almost: Hard. Wrong: Again.
+    const g = verdict === "correct" ? (state.hint || n ? 2 : 3) : verdict === "almost" ? 1 : 0;
+    Store.setRec(current.id, SRS.grade(Store.getRec(current.id), g, now));
     if (n === 0) tally[verdict] += 1;            // tally the first pass only
-    if (verdict === "wrong" && n < MAX_REQUEUE) {
+    if (verdict === "wrong" && n < MAX_REQUEUE && !noRequeue) {
       requeues[current.id] = n + 1;
       queue.push(current);                        // comes back at the end of the session
     } else {
@@ -428,6 +509,7 @@ const Sentences = (() => {
 
   function finish() {
     current = null;
+    Store.clearPracticeSession();
     TTS.stop();
     $("practice-card").hidden = true;
     $("practice-done").hidden = false;
@@ -453,6 +535,12 @@ const Sentences = (() => {
 
   // ---------- wiring ----------
   $("btn-practice-start").addEventListener("click", start);
+  $("btn-practice-resume").addEventListener("click", resume);
+  $("btn-practice-restore").addEventListener("click", () => {
+    if (!bank) return;
+    Store.removePracticeDone(masteredInSelection().map(it => it.id));
+    renderSetup();
+  });
   $("practice-exit").addEventListener("click", backToSetup);
   $("btn-practice-again").addEventListener("click", backToSetup);
   $("practice-level").addEventListener("input", (e) => {

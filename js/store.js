@@ -8,6 +8,8 @@ const Store = (() => {
     customDecks: "dd.customDecks.v1",
     newCount: "dd.newCount.v1",
     bookmarks: "dd.bookmarks.v1",
+    practiceDone: "dd.practiceDone.v1",
+    practiceSession: "dd.practiceSession.v1",
   };
 
   const DEFAULT_SETTINGS = {
@@ -88,6 +90,25 @@ const Store = (() => {
     writeJSON(KEYS.bookmarks, [...bookmarks]);
   }
 
+  // ---- sentence practice: ids marked "mastered — don't show again" ----
+  let practiceDone = new Set(readJSON(KEYS.practiceDone, []));
+  function getPracticeDone() { return [...practiceDone]; }
+  function isPracticeDone(id) { return practiceDone.has(id); }
+  function setPracticeDone(ids) {
+    practiceDone = new Set(ids);
+    writeJSON(KEYS.practiceDone, [...practiceDone]);
+  }
+  function addPracticeDone(id) { practiceDone.add(id); writeJSON(KEYS.practiceDone, [...practiceDone]); }
+  function removePracticeDone(ids) {
+    for (const id of ids) practiceDone.delete(id);
+    writeJSON(KEYS.practiceDone, [...practiceDone]);
+  }
+
+  // ---- sentence practice: the unfinished session, so a reload can resume it ----
+  function getPracticeSession() { return readJSON(KEYS.practiceSession, null); }
+  function savePracticeSession(s) { writeJSON(KEYS.practiceSession, s); }
+  function clearPracticeSession() { localStorage.removeItem(KEYS.practiceSession); }
+
   // ---- daily new-card counter ----
   function todayStr() {
     const d = new Date();
@@ -112,6 +133,7 @@ const Store = (() => {
       settings,
       customDecks,
       bookmarks: [...bookmarks],
+      practiceDone: [...practiceDone],
     };
   }
 
@@ -121,6 +143,7 @@ const Store = (() => {
     settings = Object.assign({}, DEFAULT_SETTINGS);
     customDecks = {};
     bookmarks = new Set();
+    practiceDone = new Set();
   }
 
   return {
@@ -128,6 +151,8 @@ const Store = (() => {
     getSettings, saveSettings,
     getCustomDecks, saveCustomDeck, deleteCustomDeck,
     getBookmarks, isBookmarked, toggleBookmark, setBookmarks,
+    getPracticeDone, isPracticeDone, setPracticeDone, addPracticeDone, removePracticeDone,
+    getPracticeSession, savePracticeSession, clearPracticeSession,
     newIntroducedToday, bumpNewIntroduced,
     exportAll, resetAll,
   };

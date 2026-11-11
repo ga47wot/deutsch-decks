@@ -76,6 +76,20 @@ everything else is optional and displayed when present.
   (a user gesture; `settings.speakAnswer`, default on). This is the only place
   speech starts without tapping a 🔊 button — keep it synchronous in that
   handler and never speak the English.
+- Grading (in `commit()`): correct at the first go without a hint = Easy
+  (stays away for days — do NOT send it through the 1 min/10 min flashcard
+  learning steps, the user found the resulting repeats annoying); correct with
+  a hint or on a re-queued pass = Good; almost = Hard; wrong = Again and
+  re-queued at the end of the session (max 2×).
+- A session only contains due + new sentences; known, not-yet-due sentences
+  are repeated only when nothing is new or due ("Practise anyway").
+- "✓ Mastered — don't show this again" puts the id in `dd.practiceDone.v1`;
+  such sentences are excluded from the pool until "Bring back N mastered
+  sentences" on the setup screen.
+- The unfinished session is saved to `dd.practiceSession.v1` after every
+  sentence, because phones drop a backgrounded page from memory; the setup
+  screen then offers "Resume session". Cleared on finish / new session, and
+  ignored after 24 h.
 - "Ask Claude" on the feedback screen only copies a ready-made question
   (English, the learner's German, the reference answer, level) to the
   clipboard for the user to paste into the Claude app themself. The app sends
@@ -92,6 +106,10 @@ everything else is optional and displayed when present.
 - `dd.customDecks.v1` — manually imported decks
 - `dd.newCount.v1` — per-day new-card counter
 - `dd.bookmarks.v1` — array of bookmarked card ids (included in export/import)
+- `dd.practiceDone.v1` — array of sentence ids marked mastered (included in
+  export/import, merged on import)
+- `dd.practiceSession.v1` — `{t, ids, step, total, done, tally, requeues}` of
+  the unfinished sentence session (transient; not exported)
 
 Never change these shapes without a migration; progress is keyed by card `id`
 and must survive deck re-imports.
@@ -142,5 +160,8 @@ and must survive deck re-imports.
     "Speak the correct German answer…" is unticked); "Try again", "My answer was also
     correct" and "Next" work; "Ask Claude" copies the question to the
     clipboard (no network request); a missed sentence comes back at the end; ✕ End
-    restores the tab bar; every accepted answer of every item checks as
+    restores the tab bar; a sentence typed correctly without a hint is due in
+    4 days, not minutes; reloading the page mid-session offers "Resume session"
+    at the same sentence; "Mastered" hides a sentence and "Bring back" restores
+    it; every accepted answer of every item checks as
     correct; works offline.

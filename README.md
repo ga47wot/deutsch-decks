@@ -55,6 +55,12 @@ checker — if your sentence was right but phrased differently, tap
 a ready-made question (the English, your German, the reference answer) to the
 clipboard so you can paste it into the Claude app; the app itself sends nothing.
 
+A sentence you type correctly without a hint stays away for days; one you
+missed comes back at the end of the session and again next time. **Mastered —
+don't show this again** removes a sentence for good (the setup screen can bring
+them back). If the phone closes the app in the background, the setup screen
+offers **Resume session** at the sentence where you stopped.
+
 To add a theme: create `data/practice/<theme>.json` (item schema in
 [CLAUDE.md](CLAUDE.md), ids unique across the whole app), list it in
 `data/practice/index.json`, and bump `CACHE_VERSION`.

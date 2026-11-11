@@ -2,7 +2,7 @@
 "use strict";
 
 const App = (() => {
-  const VERSION = "1.5.1";
+  const VERSION = "1.5.2";
   const $ = (id) => document.getElementById(id);
 
   /* ================= modal ================= */
@@ -567,6 +567,9 @@ const App = (() => {
     Store.replaceProgress(merged);
     if (Array.isArray(data.bookmarks)) {
       Store.setBookmarks([...new Set([...Store.getBookmarks(), ...data.bookmarks.filter(id => typeof id === "string")])]);
+    }
+    if (Array.isArray(data.practiceDone)) {
+      Store.setPracticeDone([...new Set([...Store.getPracticeDone(), ...data.practiceDone.filter(id => typeof id === "string")])]);
     }
     if (data.customDecks) {
       for (const [id, d] of Object.entries(data.customDecks)) {
